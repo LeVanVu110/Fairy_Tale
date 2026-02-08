@@ -187,6 +187,104 @@
         }
 
         /* ----------------------------- section 3 -----------------------------  */
+        /* ----------------------------- Section 3: Navigator's Tools ----------------------------- */
+
+        /* La bàn đồng cổ */
+        #navigator-compass {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 150px;
+            height: 150px;
+            background: url('./assets/image/la_ban.png') no-repeat center;
+            background-size: contain;
+            z-index: 500;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #compass-needle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 80px;
+            background: linear-gradient(to bottom, #7a1a1a 50%, #d4bc8d 50%);
+            margin-left: -5px;
+            margin-top: -40px;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Vòng tròn hào quang tiến độ */
+        .progress-aura {
+            position: absolute;
+            inset: -10px;
+            border: 4px solid transparent;
+            border-top-color: #ffaa00;
+            border-radius: 50%;
+            filter: blur(2px) drop-shadow(0 0 10px #ffaa00);
+            transform: rotate(0deg);
+            /* JS sẽ update giá trị này */
+        }
+
+        /* Thấu kính ma thuật (Magnifying Lens) */
+        #magic-lens {
+            position: fixed;
+            width: 250px;
+            height: 250px;
+            border: 15px solid #3d2b1f;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 400;
+            display: none;
+            backdrop-filter: brightness(1.2) contrast(1.2) saturate(1.5);
+            box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.2), 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        #explorer-journal {
+            position: fixed;
+            bottom: 20px;
+            left: 200px;
+            /* Nằm cạnh la bàn trên Desktop */
+            width: 280px;
+            height: 350px;
+            background: #e6d5b8;
+            background-image: url('https://www.transparenttextures.com/patterns/handmade-paper.png');
+            padding: 25px;
+            border: 2px solid #3d2b1f;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            z-index: 450;
+            transform: translateY(120%);
+            /* Ẩn xuống dưới */
+            clip-path: polygon(0 0, 100% 2%, 98% 100%, 2% 98%);
+            /* Cạnh giấy rách */
+        }
+
+        /* Mobile: Đưa sổ vào giữa khi mở */
+        @media (max-width: 768px) {
+            #explorer-journal {
+                left: 5%;
+                width: 90%;
+                bottom: 130px;
+                /* Nằm trên la bàn mobile */
+            }
+        }
+
+        /* Mobile: Radial Menu */
+        @media (max-width: 768px) {
+            #navigator-compass {
+                left: auto;
+                right: 20px;
+                bottom: 20px;
+                width: 100px;
+                height: 100px;
+            }
+
+            #navigator-compass.active {
+                transform: scale(1.5) rotate(-45deg);
+            }
+        }
 
         /* ----------------------------- section 4 -----------------------------  */
 
@@ -255,6 +353,28 @@
     </div>
 
     <!-- ----------------------------- section 3 -----------------------------  -->
+    <div id="magic-lens"></div>
+
+    <div id="navigator-compass" onclick="toggleJournal()">
+        <div class="progress-aura" id="discovery-progress"></div>
+        <div id="compass-needle"></div>
+
+        <div class="radial-menu hidden">
+            <button onclick="teleportTo('harbor')" class="btn-tp" style="--i:1">⚓</button>
+            <button onclick="teleportTo('volcano')" class="btn-tp" style="--i:2">🔥</button>
+            <button onclick="teleportTo('castle')" class="btn-tp" style="--i:3">🏰</button>
+        </div>
+    </div>
+
+    <div id="explorer-journal" class="fixed bottom-10 left-[200px] w-64 h-80 bg-[#e6d5b8] shadow-2xl translate-y-[120%] transition-transform duration-500 z-[450] p-6 font-serif overflow-y-auto">
+        <div class="border-b border-[#3d2b1f] mb-4 pb-2 font-bold text-[#3d2b1f]">NHẬT KÝ VIỄN THÁM</div>
+        <ul class="space-y-4 text-sm" id="journal-list">
+            <li class="cursor-pointer hover:text-red-800 transition-colors" dblclick="teleportTo('volcano')">
+                📖 Núi Lửa Cổ Đại <span class="text-green-600 ml-2">✓</span>
+            </li>
+            <li class="opacity-50 italic">??? - Chưa khám phá</li>
+        </ul>
+    </div>
 
     <!-- ----------------------------- section 4 -----------------------------  -->
 
@@ -426,6 +546,140 @@
     });
 
     //----------------------------- section 3 ----------------------------- //
+    // 1. Hiệu ứng Sonar Pulse: Phát sóng âm tìm bí mật
+    setInterval(() => {
+        const pulse = document.createElement('div');
+        pulse.className = 'fixed rounded-full border-2 border-orange-500/30 pointer-events-none z-[100]';
+        pulse.style.left = '105px';
+        pulse.style.bottom = '105px'; // Tâm la bàn
+        document.body.appendChild(pulse);
+
+        gsap.fromTo(pulse, {
+            width: 0,
+            height: 0,
+            opacity: 0.8
+        }, {
+            width: 3000,
+            height: 3000,
+            opacity: 0,
+            duration: 3,
+            ease: "power1.out",
+            onComplete: () => pulse.remove()
+        });
+
+        // Tiếng chuông nhỏ khi sóng quét qua (âm lượng cực thấp)
+        const bell = new Audio('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-one/foley_crystal_glass_ping_001.mp3');
+        bell.volume = 0.05;
+        bell.play();
+    }, 30000);
+
+    // 2. Dịch chuyển tức thời (Teleport)
+    function teleportTo(targetId) {
+        const targets = {
+            volcano: {
+                x: -800,
+                y: -200
+            }, // Tọa độ trên map lớn
+            harbor: {
+                x: -200,
+                y: -600
+            }
+        };
+
+        const content = document.getElementById('pan-content');
+
+        // Hiệu ứng Motion Blur khi di chuyển nhanh
+        gsap.to(content, {
+            filter: "blur(10px) brightness(1.5)",
+            duration: 0.2
+        });
+
+        gsap.to(content, {
+            x: targets[targetId].x,
+            y: targets[targetId].y,
+            duration: 1.5,
+            delay: 0.2,
+            ease: "expo.inOut",
+            onComplete: () => gsap.to(content, {
+                filter: "blur(0px) brightness(1)",
+                duration: 0.5
+            })
+        });
+    }
+
+    // 3. Kim la bàn chỉ hướng "Bí mật"
+    document.addEventListener('mousemove', (e) => {
+        const needle = document.getElementById('compass-needle');
+        // Giả lập kim luôn hướng về một điểm bí mật chưa mở
+        const secretPoint = {
+            x: 500,
+            y: 500
+        };
+        const angle = Math.atan2(secretPoint.y - e.pageY, secretPoint.x - e.pageX) * 180 / Math.PI;
+
+        gsap.to(needle, {
+            rotation: angle + 90,
+            duration: 0.5
+        });
+    });
+
+    // 4. Thấu kính ma thuật theo chuột
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Shift') {
+            const lens = document.getElementById('magic-lens');
+            lens.style.display = 'block';
+            document.addEventListener('mousemove', moveLens);
+        }
+    });
+
+    document.addEventListener('keyup', (e) => {
+        if (e.key === 'Shift') {
+            document.getElementById('magic-lens').style.display = 'none';
+            document.removeEventListener('mousemove', moveLens);
+        }
+    });
+
+    function moveLens(e) {
+        const lens = document.getElementById('magic-lens');
+        gsap.to(lens, {
+            left: e.clientX - 125,
+            top: e.clientY - 125,
+            duration: 0.1
+        });
+    }
+
+    function toggleJournal() {
+        const journal = document.getElementById('explorer-journal');
+        const compass = document.getElementById('navigator-compass');
+
+        // Kiểm tra trạng thái hiện tại bằng class hoặc style
+        if (journal.style.transform === 'translateY(0%)') {
+            // Đóng sổ
+            gsap.to(journal, {
+                translateY: '120%',
+                duration: 0.6,
+                ease: "power4.in"
+            });
+            compass.classList.remove('active');
+
+            // Tiếng đóng sách
+            new Audio('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-one/foley_book_close_001.mp3').play();
+        } else {
+            // Mở sổ
+            gsap.to(journal, {
+                translateY: '0%',
+                duration: 0.8,
+                ease: "back.out(1.2)"
+            });
+            compass.classList.add('active');
+
+            // Tiếng lật giấy da
+            new Audio('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-one/foley_paper_parchment_crumple_001.mp3').play();
+        }
+
+        // Hiệu ứng rung phản hồi (Haptic)
+        if (window.navigator.vibrate) window.navigator.vibrate(20);
+    }
 
     //----------------------------- section 4 ----------------------------- //
 
