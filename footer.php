@@ -1,6 +1,6 @@
 <footer class="w-full bg-[#fcfaf5] text-[#3d2b1f] pt-20 pb-10 px-6 overflow-hidden border-t border-[#3d2b1f]/10">
     <div class="max-w-[1200px] mx-auto">
-        
+
         <div class="ornament-container flex justify-center mb-16">
             <div class="ornament h-[2px] bg-[#3d2b1f]/20 w-1/2 md:w-[80%] relative transition-all duration-700">
                 <div class="absolute inset-0 flex justify-around -top-1">
@@ -12,7 +12,7 @@
         </div>
 
         <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-6 md:gap-[6rem]">
-            
+
             <div class="footer-col-left order-3 md:order-1 flex-1 text-center md:text-left space-y-4">
                 <h3 class="font-gothic text-lg uppercase tracking-widest">Sứ Mệnh</h3>
                 <p class="text-sm italic leading-relaxed opacity-80">
@@ -34,7 +34,7 @@
                     <ul class="space-y-2">
                         <li><a href="Ancient_Secrets.php" class="footer-link opacity-70 hover:opacity-100 transition-all duration-500 text-sm tracking-widest">BÍ MẬT CỔ NGỮ</a></li>
                         <li><a href="#" class="footer-link opacity-70 hover:opacity-100 transition-all duration-500 text-sm tracking-widest">BẢN ĐỒ VIỄN THÁM</a></li>
-                        <li><a href="#" class="footer-link opacity-70 hover:opacity-100 transition-all duration-500 text-sm tracking-widest">LIÊN HỆ PHÁP SƯ</a></li>
+                        <li><a href="Alchemist's_Study.php" class="footer-link opacity-70 hover:opacity-100 transition-all duration-500 text-sm tracking-widest">LIÊN HỆ PHÁP SƯ</a></li>
                     </ul>
                 </nav>
             </div>
@@ -64,19 +64,24 @@
 <script>
     // 1. Hiệu ứng Dấu Sáp Phản Ứng (The Interactive Seal)
     const seal = document.getElementById('wax-seal');
-    
+
     seal.addEventListener('mouseenter', () => {
         gsap.to(seal, {
             rotate: "random(-5, 5)",
             repeat: 3,
             yoyo: true,
             duration: 0.1,
-            onComplete: () => gsap.set(seal, { className: "+=seal-active-shadow" })
+            onComplete: () => gsap.set(seal, {
+                className: "+=seal-active-shadow"
+            })
         });
     });
 
     seal.addEventListener('mouseleave', () => {
-        gsap.to(seal, { rotate: 0, duration: 0.5 });
+        gsap.to(seal, {
+            rotate: 0,
+            duration: 0.5
+        });
         seal.classList.remove('seal-active-shadow');
     });
 
