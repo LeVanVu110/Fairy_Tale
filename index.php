@@ -129,7 +129,7 @@
     </section>
 
     <!-- ----------------------------- section 2 -----------------------------  -->
-    <section id="story-grid" class="relative py-20 px-6 bg-[#fcfaf5] overflow-hidden">
+    <!-- <section id="story-grid" class="relative py-20 px-6 bg-[#fcfaf5] overflow-hidden">
         <div class="container mx-auto max-w-7xl">
 
             <div class="mb-12 text-center md:text-left">
@@ -203,6 +203,84 @@
                         <p class="text-xs uppercase tracking-widest opacity-60">Dân gian Ả Rập</p>
                     </div>
                 </div>
+
+            </div>
+        </div>
+    </section> -->
+    <section id="story-grid" class="relative py-20 px-6 bg-[#fcfaf5] overflow-hidden">
+        <div class="container mx-auto max-w-7xl">
+
+            <div class="mb-12 text-center md:text-left">
+                <h2 class="font-gothic text-3xl md:text-4xl uppercase tracking-widest border-b border-[#3d2b1f]/20 inline-block pb-2">
+                    Kho Tàng Di Sản
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12" id="grid-container">
+
+                <a href="Detail_Story_Library.php?id=bach-tuyet" class="story-card group md:col-span-2 relative p-4 border border-[#3d2b1f]/30 bg-[#fdfbf7] shadow-sm transition-all duration-500 hover:shadow-xl hover:-translate-y-1 block">
+                    <div class="absolute top-1 left-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute top-1 right-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute bottom-1 left-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute bottom-1 right-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+
+                    <div class="overflow-hidden mb-4 aspect-[16/9] md:aspect-video">
+                        <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?q=80&w=2070&auto=format&fit=crop"
+                            class="w-full h-full object-cover sepia-[0.3] group-hover:sepia-0 transition-all duration-700" alt="Story 1">
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="story-title text-xl md:text-2xl font-bold transition-colors duration-500 group-hover:text-[#7a1a1a]">Bạch Tuyết và Bảy Chú Lùn</h3>
+                        <p class="text-xs uppercase tracking-widest opacity-60">Nguồn gốc: Truyện cổ Grimm</p>
+                    </div>
+                </a>
+
+                <a href="Detail_Story_Library.php?id=trau-cau" class="story-card group relative p-4 border border-[#3d2b1f]/30 bg-[#fdfbf7] shadow-sm transition-all duration-500 hover:shadow-xl hover:-translate-y-1 block">
+                    <div class="absolute top-1 left-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute top-1 right-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute bottom-1 left-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute bottom-1 right-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+
+                    <div class="overflow-hidden mb-4 aspect-square">
+                        <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1974&auto=format&fit=crop"
+                            class="w-full h-full object-cover sepia-[0.3] group-hover:sepia-0 transition-all duration-700" alt="Story 2">
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="story-title text-xl font-bold transition-colors duration-500 group-hover:text-[#7a1a1a]">Sự Tích Trầu Cau</h3>
+                        <p class="text-xs uppercase tracking-widest opacity-60">Dân gian Việt Nam</p>
+                    </div>
+                </a>
+
+                <a href="Detail_Story_Library.php?id=bo-quan-ao-moi" class="story-card group relative p-4 border border-[#3d2b1f]/30 bg-[#fdfbf7] shadow-sm transition-all duration-500 hover:shadow-xl hover:-translate-y-1 block">
+                    <div class="absolute top-1 left-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute top-1 right-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute bottom-1 left-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute bottom-1 right-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+
+                    <div class="overflow-hidden mb-4 aspect-square">
+                        <img src="https://truyencotich.top/storage/img/oxpoyAGfLTvxPBNksDHdyMUM78GlTlgchcYp8htf.webp"
+                            class="w-full h-full object-cover sepia-[0.3] group-hover:sepia-0 transition-all duration-700" alt="Story 3">
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="story-title text-xl font-bold transition-colors duration-500 group-hover:text-[#7a1a1a]">Bộ Quần Áo Mới Của Hoàng Đế</h3>
+                        <p class="text-xs uppercase tracking-widest opacity-60">Truyện cổ Andersen</p>
+                    </div>
+                </a>
+
+                <a href="Detail_Story_Library.php?id=nghin-le-mot-dem" class="story-card group relative p-4 border border-[#3d2b1f]/30 bg-[#fdfbf7] shadow-sm transition-all duration-500 hover:shadow-xl hover:-translate-y-1 block">
+                    <div class="absolute top-1 left-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute top-1 right-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute bottom-1 left-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute bottom-1 right-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+
+                    <div class="overflow-hidden mb-4 aspect-square">
+                        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=1974&auto=format&fit=crop"
+                            class="w-full h-full object-cover sepia-[0.3] group-hover:sepia-0 transition-all duration-700" alt="Story 4">
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="story-title text-xl font-bold transition-colors duration-500 group-hover:text-[#7a1a1a]">Nghìn Lẻ Một Đêm</h3>
+                        <p class="text-xs uppercase tracking-widest opacity-60">Dân gian Ả Rập</p>
+                    </div>
+                </a>
 
             </div>
         </div>
