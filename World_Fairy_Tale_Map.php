@@ -200,7 +200,8 @@
             .journal-book {
                 flex-direction: column;
             }
-            .wax-seal{
+
+            .wax-seal {
                 margin-top: 50%;
                 margin-left: 20%;
             }
