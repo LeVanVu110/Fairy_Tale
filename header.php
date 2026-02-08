@@ -79,9 +79,11 @@
                 <div class="vertical-line hidden md:block w-[1px] h-8 bg-[#3d2b1f]/20 shrink-0"></div>
 
                 <div class="section-masthead text-center">
-                    <h1 class="font-gothic text-xl sm:text-3xl md:text-5xl font-black whitespace-nowrap tracking-tight italic md:not-italic">
-                        CỔ TÍCH BIÊN NIÊN
-                    </h1>
+                    <a href="index.php">
+                        <h1 class="font-gothic text-xl sm:text-3xl md:text-5xl font-black whitespace-nowrap tracking-tight italic md:not-italic">
+                            CỔ TÍCH BIÊN NIÊN
+                        </h1>
+                    </a>
                 </div>
 
                 <div class="vertical-line hidden md:block w-[1px] h-8 bg-[#3d2b1f]/20 shrink-0"></div>
