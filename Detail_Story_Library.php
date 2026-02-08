@@ -267,12 +267,100 @@
                 opacity: 1;
                 margin: 10px 0;
             }
+
             #progress-ribbon {
                 right: 0%;
             }
         }
 
         /* ----------------------------- section 3 -----------------------------  */
+        /* ----------------------------- Section 3: The Epilogue ----------------------------- */
+        #story-epilogue {
+            background: #fcfaf5;
+            padding-top: 20vh;
+            /* Khoảng lặng chiêm nghiệm */
+            padding-bottom: 10vh;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Dấu ngắt Hết truyện */
+        .the-end-ornament {
+            font-family: 'Cinzel Decorative', serif;
+            color: #7a1a1a;
+            font-size: 1.5rem;
+            letter-spacing: 10px;
+            margin-bottom: 30vh;
+            /* Đẩy nội dung tương tác xuống sâu */
+        }
+
+        /* Khu vực Con Dấu Sáp */
+        .wax-seal-wrapper {
+            position: relative;
+            display: inline-block;
+            margin: 50px 0;
+        }
+
+        #wax-seal-stamp {
+            width: 100px;
+            height: 100px;
+            background: #7a1a1a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fcfaf5;
+            font-weight: bold;
+            font-size: 10px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transform: scale(3);
+            /* Ban đầu to để tạo cảm giác từ trên cao hạ xuống */
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 2px solid #5a1414;
+            user-select: none;
+        }
+
+        #wax-seal-stamp.stamped {
+            transform: scale(1) rotate(-15deg);
+            opacity: 1;
+        }
+
+        /* Thẻ gợi ý mẩu giấy xé */
+        .related-note {
+            background: #eee6d5;
+            padding: 20px;
+            width: 250px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+            transform: rotate(calc(var(--r) * 1deg));
+            clip-path: polygon(0% 0%, 100% 0%, 95% 95%, 5% 100%);
+            /* Hiệu ứng xé giấy */
+            transition: transform 0.3s;
+        }
+
+        .related-note:hover {
+            transform: scale(1.05) rotate(0deg);
+            z-index: 10;
+        }
+
+        /* Nút chia sẻ Con Tem */
+        .stamp-share {
+            width: 50px;
+            height: 65px;
+            background: #f2e8cf;
+            border: 2px dashed #b8860b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #3d2b1f;
+            transition: transform 0.3s;
+        }
+
+        .stamp-share:hover {
+            transform: translateY(-10px) rotate(5deg);
+        }
 
         /* ----------------------------- section 4 -----------------------------  */
 
@@ -355,6 +443,53 @@
     </section>
 
     <!-- ----------------------------- section 3 -----------------------------  -->
+    <section id="story-epilogue">
+        <div class="the-end-ornament">
+            <p>HẾT</p>
+            <span class="text-3xl">❦</span>
+        </div>
+
+        <div class="container mx-auto px-6">
+            <div class="mb-32">
+                <p class="font-serif italic text-[#3d2b1f]/60 mb-6">Bạn đã hoàn thành bản thảo này. Hãy để lại ấn ký của mình.</p>
+                <div class="wax-seal-wrapper">
+                    <div id="wax-seal-stamp" onclick="applySeal()">
+                        <span>ARCHIVIST<br>SEAL</span>
+                    </div>
+                    <button id="seal-trigger" onclick="applySeal()" class="px-8 py-3 border-2 border-[#7a1a1a] text-[#7a1a1a] font-gothic tracking-widest hover:bg-[#7a1a1a] hover:text-white transition-all">ĐÓNG DẤU ẤN KÝ</button>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-10 mb-32">
+                <h4 class="w-full font-gothic text-[#b8860b] mb-4">NHỮNG CHƯƠNG TIẾP THEO...</h4>
+
+                <div class="related-note" style="--r: -2">
+                    <h5 class="font-bold text-[#7a1a1a]">Sự Tích Trầu Cau</h5>
+                    <p class="text-xs mt-2 italic">"Một tình thân chia hai, một linh hồn hóa đá..."</p>
+                    <a href="#" class="text-[10px] underline mt-4 block">LẬT MỞ</a>
+                </div>
+
+                <div class="related-note" style="--r: 3">
+                    <h5 class="font-bold text-[#7a1a1a]">Thạch Sanh</h5>
+                    <p class="text-xs mt-2 italic">"Tiếng đàn công lý vang vọng từ hang tối..."</p>
+                    <a href="#" class="text-[10px] underline mt-4 block">LẬT MỞ</a>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center gap-8">
+                <div class="flex gap-4">
+                    <a href="#" class="stamp-share"><i class="ri-facebook-box-fill"></i></a>
+                    <a href="#" class="stamp-share"><i class="ri-twitter-x-fill"></i></a>
+                    <a href="#" class="stamp-share" title="Gửi bồ câu"><i class="ri-send-plane-fill"></i></a>
+                </div>
+
+                <button onclick="scrollToTop()" class="flex flex-col items-center opacity-40 hover:opacity-100 transition-opacity">
+                    <i class="ri-hourglass-2-fill text-3xl animate-spin"></i>
+                    <span class="text-[10px] font-gothic mt-2">QUAY VỀ KHỞI NGUYÊN</span>
+                </button>
+            </div>
+        </div>
+    </section>
 
     <!-- ----------------------------- section 4 -----------------------------  -->
 
@@ -462,6 +597,46 @@
     });
 
     //----------------------------- section 3 ----------------------------- //
+    function applySeal() {
+        const seal = document.getElementById('wax-seal-stamp');
+        const trigger = document.getElementById('seal-trigger');
+
+        // Ẩn nút bấm, hiện con dấu
+        trigger.style.display = 'none';
+        seal.classList.add('stamped');
+
+        // Hiệu ứng âm thanh (giả lập)
+        console.log("Sound: Thump!");
+
+        // Hiệu ứng rung màn hình (Haptic Feedback)
+        if (navigator.vibrate) {
+            navigator.vibrate(50); // Rung nhẹ điện thoại
+        }
+
+        // GSAP Rung màn hình trình duyệt
+        gsap.to("body", {
+            x: 3,
+            y: 3,
+            duration: 0.05,
+            repeat: 5,
+            yoyo: true,
+            onComplete: () => gsap.set("body", {
+                x: 0,
+                y: 0
+            })
+        });
+
+        // Hiện thông tin ngày tháng lên con dấu
+        const now = new Date();
+        seal.innerHTML = `<span>${now.getDate()}.${now.getMonth()+1}.${now.getFullYear()}</span>`;
+    }
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
 
     //----------------------------- section 4 ----------------------------- //
 

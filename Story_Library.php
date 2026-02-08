@@ -357,7 +357,7 @@
     </section>
 
     <!-- ----------------------------- section 2 -----------------------------  -->
-    <section id="hall-of-whispers" class="py-24 bg-[#1a120b]">
+    <!-- <section id="hall-of-whispers" class="py-24 bg-[#1a120b]">
         <div class="container mx-auto px-4">
 
             <div class="shelf-category mb-20">
@@ -405,6 +405,56 @@
             </div>
 
         </div>
+    </section> -->
+    <section id="hall-of-whispers" class="py-24 bg-[#1a120b]">
+        <div class="container mx-auto px-4">
+
+            <div class="shelf-category mb-20">
+                <h2 class="font-gothic text-[#b8860b] text-xl mb-4 ml-10 opacity-60 tracking-[0.4em]">SINH VẬT HUYỀN BÍ</h2>
+
+                <div class="books-row">
+                    <a href="Detail_Story_Library.php?id=ky-lan-truyen" class="book-item" style="--book-color: #4a0e0e; --book-height: 200px; --book-width: 35px;">
+                        <div class="book-spine">
+                            <span class="spine-title">Kỳ Lân Truyện</span>
+                        </div>
+                        <div class="book-teaser">
+                            <h4 class="font-bold mb-1">Kỳ Lân Truyện</h4>
+                            <p>Hành trình tìm kiếm sinh vật mang máu bạc trong rừng thẳm...</p>
+                        </div>
+                    </a>
+
+                    <a href="Detail_Story_Library.php?id=bach-thu-quy" class="book-item" style="--book-color: #1e2d24; --book-height: 185px; --book-width: 40px; transform: rotate(-3deg);">
+                        <div class="book-spine">
+                            <span class="spine-title">Bách Thú Quy</span>
+                        </div>
+                        <div class="book-teaser">
+                            <h4 class="font-bold mb-1">Bách Thú Quy</h4>
+                            <p>Vạn vật hữu linh, ghi chép về các linh thú từ thời hồng hoang.</p>
+                        </div>
+                    </a>
+
+                    <a href="Detail_Story_Library.php?id=long-toc-ky" class="book-item" style="--book-color: #2c3e50; --book-height: 195px; --book-width: 32px;">
+                        <div class="book-spine"><span class="spine-title">Long Tộc Ký</span></div>
+                    </a>
+
+                    <a href="Detail_Story_Library.php?id=hoa-phuong-hoang" class="book-item" style="--book-color: #5d4037; --book-height: 210px; --book-width: 45px; transform: rotate(2deg);">
+                        <div class="book-spine"><span class="spine-title">Hỏa Phượng Hoàng</span></div>
+                    </a>
+                </div>
+                <div class="wooden-shelf"></div>
+            </div>
+
+            <div class="shelf-category mb-20">
+                <h2 class="font-gothic text-[#b8860b] text-xl mb-4 ml-10 opacity-60 tracking-[0.4em]">DÂN GIAN THẾ GIỚI</h2>
+                <div class="books-row">
+                    <a href="Detail_Story_Library.php?id=grimm" class="book-item" style="--book-color: #3e2723; --book-height: 180px; --book-width: 38px;">
+                        <div class="book-spine"><span class="spine-title">Cổ Tích Grimm</span></div>
+                    </a>
+                </div>
+                <div class="wooden-shelf"></div>
+            </div>
+
+        </div>
     </section>
 
     <!-- ----------------------------- section 3 -----------------------------  -->
@@ -419,7 +469,7 @@
 
                     <div class="manuscript-stack w-full flex flex-col items-center md:items-start">
 
-                        <div class="manuscript-card w-full max-w-[300px] h-80 p-8 flex flex-col justify-between">
+                        <div class="manuscript-card w-full max-w-[300px] h-80 p-8 flex flex-col justify-between" data-story="so-dua">
                             <div class="absolute -top-3 right-8 w-5 h-20 bg-[#7a1a1a] shadow-lg"></div>
                             <div class="h-1 bg-[#7a1a1a]/20 w-full mb-4"></div>
                             <h4 class="font-bold text-[#3d2b1f] text-xl">Sọ Dừa (18xx)</h4>
@@ -427,12 +477,12 @@
                             <button class="text-[10px] font-bold text-[#7a1a1a] border-b border-[#7a1a1a]/30 w-fit">TIẾP TỤC</button>
                         </div>
 
-                        <div class="manuscript-card w-full max-w-[300px] h-80 p-8 flex flex-col justify-between ms-5">
+                        <div class="manuscript-card w-full max-w-[300px] h-80 p-8 flex flex-col justify-between ms-5" data-story="ho-thien-nga">
                             <h4 class="font-bold text-[#3d2b1f] text-xl">Hồ Thiên Nga</h4>
                             <p class="text-xs italic text-[#3d2b1f]/70">Gợi ý: Phiên bản cổ chưa qua chỉnh lý.</p>
                             <button class="text-[10px] font-bold text-[#7a1a1a] border-b border-[#7a1a1a]/30 w-fit">MỞ KHÓA</button>
                         </div>
-                        <div class="manuscript-card w-full max-w-[300px] h-80 p-8 flex flex-col justify-between ms-9">
+                        <div class="manuscript-card w-full max-w-[300px] h-80 p-8 flex flex-col justify-between ms-9" data-story="tam-cam">
                             <h4 class="font-bold text-[#3d2b1f] text-xl">Tấm Cám</h4>
                             <p class="text-xs italic text-[#3d2b1f]/70">Gợi ý: Phiên bản cổ chưa qua chỉnh lý.</p>
                             <button class="text-[10px] font-bold text-[#7a1a1a] border-b border-[#7a1a1a]/30 w-fit">MỞ KHÓA</button>
@@ -633,18 +683,27 @@
         isNookDark = !isNookDark;
     }
 
-    // Hiệu ứng lật trang khi nhấn vào bản thảo
+    // Hiệu ứng lật trang và chuyển hướng thực tế
     document.querySelectorAll('.manuscript-card').forEach(card => {
-        card.addEventListener('click', () => {
-            gsap.to(card, {
-                rotationY: -90,
-                x: -100,
+        card.addEventListener('click', function() {
+            // Lấy ID truyện từ data-story
+            const storyId = this.getAttribute('data-story') || 'default';
+
+            // Hiệu ứng GSAP: Lật trang + Phóng to
+            gsap.to(this, {
+                rotationY: -110, // Lật sâu hơn một chút
+                x: -200,
+                scale: 1.5,
                 opacity: 0,
-                duration: 0.8,
-                ease: "power2.in",
+                duration: 1,
+                ease: "power2.inOut",
+                onStart: () => {
+                    // Có thể thêm hiệu ứng tối dần toàn màn hình ở đây
+                    document.body.style.pointerEvents = "none"; // Chặn click đúp
+                },
                 onComplete: () => {
-                    alert("Đang mở bản thảo cổ... Hãy sẵn sàng để lặn sâu vào câu chuyện.");
-                    // Chỗ này bạn có thể redirect: window.location.href = "read_story.php";
+                    // Chuyển hướng sang trang chi tiết với tham số id
+                    window.location.href = `Detail_Story_Library.php?id=${storyId}`;
                 }
             });
         });
