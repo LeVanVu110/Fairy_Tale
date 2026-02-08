@@ -163,7 +163,7 @@
         #progress-ribbon {
             position: fixed;
             top: 0;
-            right: 10%;
+            right: 4%;
             width: 15px;
             height: 0;
             /* Sẽ điều khiển bằng JS */
@@ -266,6 +266,9 @@
                 display: block;
                 opacity: 1;
                 margin: 10px 0;
+            }
+            #progress-ribbon {
+                right: 0%;
             }
         }
 
