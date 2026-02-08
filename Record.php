@@ -135,6 +135,106 @@
         }
 
         /* ----------------------------- section 2 -----------------------------  */
+        /* ----------------------------- Section 2: The Archive of Whispers ----------------------------- */
+        #archive-whispers {
+            background: #0f0a06;
+            /* Màu tối của kho lưu trữ */
+            padding: 100px 0;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Bảng da thuộc chứa giấy */
+        .leather-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 40px;
+            padding: 40px;
+            perspective: 1000px;
+        }
+
+        /* Mảnh giấy da ký ức */
+        .whisper-scrap {
+            background: #e6d5b8;
+            background-image: url('https://www.transparenttextures.com/patterns/handmade-paper.png');
+            padding: 25px;
+            min-height: 300px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+            cursor: grab;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            /* Hiệu ứng xé cạnh bằng clip-path */
+            clip-path: polygon(2% 0%, 98% 1%, 100% 98%, 1% 100%, 0% 50%);
+        }
+
+        /* Hiệu ứng Gió thổi (Flutter) */
+        @keyframes flutter {
+
+            0%,
+            100% {
+                transform: rotate(var(--r)) translateY(0);
+            }
+
+            50% {
+                transform: rotate(calc(var(--r) + 2deg)) translateY(-5px);
+            }
+        }
+
+        .whisper-scrap:hover {
+            transform: scale(1.1) rotate(0deg) !important;
+            z-index: 100;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+            filter: brightness(1.2);
+        }
+
+        /* Thời gian theo tuần trăng */
+        .moon-phase {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 0.7rem;
+            color: #7a1a1a;
+            border-bottom: 1px dotted #7a1a1a;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* Lò sưởi để xóa (The Hearth) */
+        .hearth-bin {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 120px;
+            height: 120px;
+            background: url('https://cdn-icons-png.flaticon.com/512/1694/1694435.png');
+            /* Icon đống lửa cổ điển */
+            background-size: contain;
+            filter: drop-shadow(0 0 10px #ff4500);
+            z-index: 200;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+
+        .hearth-bin.drag-over {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .leather-board {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: -50px;
+                /* Chồng lớp trên mobile */
+            }
+
+            .whisper-scrap {
+                width: 90%;
+                margin-bottom: -150px;
+                /* Tạo hiệu ứng Stack */
+                transform: rotate(0deg) !important;
+            }
+        }
 
         /* ----------------------------- section 3 -----------------------------  */
 
@@ -179,6 +279,47 @@
     </section>
 
     <!-- ----------------------------- section 2 -----------------------------  -->
+    <section id="archive-whispers">
+        <div class="container mx-auto">
+            <h3 class="font-gothic text-[#b8860b] text-center text-2xl mb-16 tracking-[0.5em] opacity-40">KHO LƯU TRỮ NHỮNG LỜI THÌ THẦM</h3>
+
+            <div class="leather-board">
+                <div class="whisper-scrap" draggable="true" ondragstart="drag(event)" style="--r: -3deg; --age: 0.1;">
+                    <span class="moon-phase">🌙 Đêm Trăng Khuyết vừa qua</span>
+                    <h4 class="font-bold text-[#3d2b1f] mb-2">Cuộc gặp dưới gốc thị...</h4>
+                    <p class="font-serif italic text-sm text-[#3d2b1f]/60 leading-relaxed">
+                        Nàng Tấm bước ra từ quả thị, mùi hương thơm ngát tỏa khắp gian bếp nhỏ của bà lão...
+                    </p>
+                    <div class="absolute bottom-4 right-4 text-[#7a1a1a]/20"><i class="ri-quill-pen-line"></i></div>
+                </div>
+
+                <div class="whisper-scrap" draggable="true" ondragstart="drag(event)"
+                    style="--r: 2deg; background-color: #d4c3a1; filter: sepia(0.3);">
+                    <span class="moon-phase">🌕 Đêm Trăng Tròn tháng trước</span>
+                    <h4 class="font-bold text-[#3d2b1f] mb-2">Bí mật máu bạc</h4>
+                    <p class="font-serif italic text-sm text-[#3d2b1f]/60 leading-relaxed">
+                        Kỳ lân không chết, nó chỉ tan vào ánh sáng để chờ đợi kẻ xứng đáng...
+                    </p>
+                    <div class="absolute bottom-4 right-4 text-[#7a1a1a]/20"><i class="ri-git-repository-line"></i></div>
+                </div>
+
+                <div class="whisper-scrap" draggable="true" ondragstart="drag(event)"
+                    style="--r: -1deg; box-shadow: 8px 8px 0px #c2b296, 12px 12px 20px rgba(0,0,0,0.4);">
+                    <span class="moon-phase">🌑 Đêm Không Trăng</span>
+                    <h4 class="font-bold text-[#3d2b1f] mb-2">Hồi kết đen của Grimm</h4>
+                    <p class="font-serif italic text-sm text-[#3d2b1f]/60 leading-relaxed">
+                        Mọi con đường đều dẫn về khu rừng, nơi tiếng sói hú vang vọng những lời nguyền...
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="hearth-bin"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event)"
+            ondragleave="this.classList.remove('drag-over')">
+        </div>
+    </section>
 
     <!-- ----------------------------- section 3 -----------------------------  -->
 
@@ -287,6 +428,81 @@
     }
 
     // -----------------------------section 2 ----------------------------- //
+    // Cho phép thả vào lò sưởi
+    function allowDrop(ev) {
+        ev.preventDefault();
+        document.querySelector('.hearth-bin').classList.add('drag-over');
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+        // Tạo ID giả nếu chưa có
+        if (!ev.target.id) ev.target.id = "scrap-" + Math.random().toString(36).substr(2, 9);
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    // HÀM QUAN TRỌNG NHẤT: Xử lý khi thả giấy vào lửa
+    function drop(ev) {
+        ev.preventDefault();
+        const data = ev.dataTransfer.getData("text");
+        const scrap = document.getElementById(data);
+        const hearth = document.querySelector('.hearth-bin');
+
+        hearth.classList.remove('drag-over');
+
+        if (scrap) {
+            // Hiệu ứng GSAP: Giấy đỏ rực lên rồi tan biến
+            gsap.to(scrap, {
+                scale: 0,
+                opacity: 0,
+                filter: "brightness(5) saturate(2) blur(10px)", // Sáng rực như đang cháy
+                color: "#ff4500",
+                duration: 0.6,
+                ease: "power2.in",
+                onComplete: () => {
+                    scrap.remove(); // Xóa khỏi DOM
+                    // Kích hoạt hạt tro tại vị trí con chuột khi thả
+                    createAshes(ev.clientX, ev.clientY);
+                }
+            });
+        }
+    }
+
+    // Hàm tạo hạt tro (Đã có trong file của bạn, đảm bảo nó trông như thế này)
+    function createAshes(x, y) {
+        for (let i = 0; i < 15; i++) { // Tăng lên 15 hạt cho đẹp
+            const ash = document.createElement('div');
+            // Tạo style cho hạt tro
+            ash.className = 'fixed pointer-events-none rounded-full z-[300]';
+            ash.style.width = Math.random() * 4 + 'px';
+            ash.style.height = ash.style.width;
+            ash.style.backgroundColor = Math.random() > 0.5 ? '#555' : '#222'; // Màu xám hoặc đen
+            ash.style.left = x + 'px';
+            ash.style.top = y + 'px';
+            document.body.appendChild(ash);
+
+            // Hiệu ứng tro bay lơ lửng rồi biến mất
+            gsap.to(ash, {
+                x: Math.random() * 150 - 75, // Bay ngang ngẫu nhiên
+                y: -200 - Math.random() * 150, // Bay lên cao
+                opacity: 0,
+                rotation: Math.random() * 360,
+                duration: 1.5 + Math.random(),
+                ease: "power1.out",
+                onComplete: () => ash.remove()
+            });
+        }
+    }
+
+    // Hiệu ứng Gió thổi ngẫu nhiên khi cuộn
+    window.addEventListener('scroll', () => {
+        document.querySelectorAll('.whisper-scrap').forEach(scrap => {
+            if (Math.random() > 0.95) {
+                scrap.style.animation = 'flutter 0.5s ease-in-out';
+                setTimeout(() => scrap.style.animation = '', 500);
+            }
+        });
+    });
 
     //----------------------------- section 3 ----------------------------- //
 
