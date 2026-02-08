@@ -116,7 +116,7 @@
                     </p>
 
                     <div class="cta-wrapper pt-4 opacity-0 translate-y-10" id="hero-cta">
-                        <a href="#" class="relative inline-block text-xl md:text-2xl font-bold tracking-widest uppercase group py-2">
+                        <a href="Discover_the_chronicles.php" class="relative inline-block text-xl md:text-2xl font-bold tracking-widest uppercase group py-2">
                             Khám phá biên niên sử
                             <span class="absolute bottom-0 left-0 w-0 h-[3px] bg-[#7a1a1a] transition-all duration-700 ease-in-out group-hover:w-full"></span>
                             <span class="absolute -bottom-2 left-0 w-full h-[1px] bg-[#3d2b1f]/10"></span>
