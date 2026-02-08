@@ -246,6 +246,102 @@
         }
 
         /* ----------------------------- section 3 -----------------------------  */
+        /* ----------------------------- Section 3: The Great Dissolve ----------------------------- */
+        #ritual-incineration {
+            padding: 60px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 50;
+        }
+
+        /* Khay đồng chứa than hồng */
+        .brazier-tray {
+            width: 200px;
+            height: 80px;
+            background: #3d2b1f;
+            border: 4px solid #b8860b;
+            border-radius: 50% / 20%;
+            position: relative;
+            box-shadow: inset 0 0 20px #ff4500, 0 10px 30px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+        }
+
+        .embers {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 120%, #ff4500, #8b0000, transparent);
+            filter: blur(5px);
+            animation: pulseEmbers 2s infinite alternate;
+        }
+
+        @keyframes pulseEmbers {
+            from {
+                opacity: 0.6;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Con dấu đồng */
+        .mystic-seal {
+            width: 100px;
+            height: 100px;
+            background: url('https://cdn-icons-png.flaticon.com/512/3593/3593416.png') no-repeat center;
+            background-size: contain;
+            cursor: pointer;
+            filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+            transition: transform 0.2s;
+            user-select: none;
+            touch-action: none;
+            /* Quan trọng cho Mobile Long Press */
+        }
+
+        .mystic-seal:active {
+            transform: scale(0.95);
+        }
+
+        /* Hiệu ứng cháy lá thư */
+        .burning-parchment {
+            animation: burnAway 3s forwards;
+            pointer-events: none;
+        }
+
+        @keyframes burnAway {
+            0% {
+                filter: brightness(1) sepia(0);
+                clip-path: inset(0 0 0 0);
+            }
+
+            30% {
+                filter: brightness(1.2) sepia(0.5) drop-shadow(0 0 10px #ff4500);
+            }
+
+            100% {
+                filter: brightness(0);
+                clip-path: inset(100% 0 0 0);
+                opacity: 0;
+            }
+        }
+
+        /* Thông điệp khói lơ lửng */
+        #spirit-response {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #e6d5b8;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            opacity: 0;
+            z-index: 500;
+            pointer-events: none;
+            text-align: center;
+        }
 
         /* ----------------------------- section 4 -----------------------------  */
 
@@ -331,6 +427,30 @@
     </section>
 
     <!-- ----------------------------- section 3 -----------------------------  -->
+    <section id="ritual-incineration">
+        <div class="text-center mb-10">
+            <p class="font-serif italic text-[#b8a681] text-sm tracking-widest">
+                "Hãy đóng dấu ấn của ngươi để hoàn tất nghi thức"
+            </p>
+        </div>
+
+        <div class="relative flex flex-col items-center gap-8">
+            <div id="main-seal" class="mystic-seal"
+                onmousedown="startIncineration()"
+                onmouseup="cancelIncineration()"
+                ontouchstart="startIncineration()"
+                ontouchend="cancelIncineration()">
+            </div>
+
+            <div class="brazier-tray">
+                <div class="embers"></div>
+            </div>
+        </div>
+
+        <div id="spirit-response">
+            "Lời thỉnh cầu đã được gió mang đi.<br>Hãy kiên nhẫn chờ hồi đáp."
+        </div>
+    </section>
 
     <!-- ----------------------------- section 4 -----------------------------  -->
 
@@ -478,6 +598,105 @@
     }
 
     //----------------------------- section 3 ----------------------------- //
+    let burnTimeout;
+    let isBurning = false;
+
+    function startIncineration() {
+        if (isBurning) return;
+
+        // 1. Hiệu ứng chuẩn bị: Con dấu nóng lên
+        gsap.to("#main-seal", {
+            filter: "drop-shadow(0 0 30px #ff4500) brightness(1.5)",
+            scale: 1.1,
+            duration: 2
+        });
+
+        // 2. Rung điện thoại tăng dần (Mobile)
+        if (window.navigator.vibrate) {
+            window.navigator.vibrate([100, 50, 200, 50, 500, 50, 1000]);
+        }
+
+        // 3. Đợi 2 giây để xác nhận "Đốt thư"
+        burnTimeout = setTimeout(() => {
+            executeRitual();
+        }, 2000);
+    }
+
+    function cancelIncineration() {
+        if (isBurning) return;
+        clearTimeout(burnTimeout);
+        gsap.to("#main-seal", {
+            filter: "drop-shadow(0 0 10px rgba(0,0,0,0.5)) brightness(1)",
+            scale: 1
+        });
+        if (window.navigator.vibrate) window.navigator.vibrate(0);
+    }
+
+    function executeRitual() {
+        isBurning = true;
+        const parchment = document.querySelector('.summoning-parchment');
+
+        // A. Hiệu ứng cháy lá thư (Section 1)
+        parchment.classList.add('burning-parchment');
+        new Audio('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-one/foley_paper_fire_burn_ignite_001.mp3').play();
+
+        // B. Tạo hạt tro bay lên (Particles)
+        createAshes();
+
+        // C. Flash sáng trắng (The Spirit Flash)
+        setTimeout(() => {
+            const flash = document.createElement('div');
+            flash.className = 'fixed inset-0 bg-white z-[1000] opacity-0';
+            document.body.appendChild(flash);
+
+            gsap.to(flash, {
+                opacity: 1,
+                duration: 0.1,
+                yoyo: true,
+                repeat: 1,
+                onComplete: () => {
+                    flash.remove();
+                    showResponse();
+                }
+            });
+            new Audio('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-61905/zapsplat_magic_spell_shimmer_glow_001_62051.mp3').play();
+        }, 2500);
+    }
+
+    function showResponse() {
+        // Hiện thông điệp khói
+        gsap.to("#spirit-response", {
+            opacity: 1,
+            y: -50,
+            duration: 2,
+            ease: "power2.out"
+        });
+
+        // Tự động reset trang sau 5 giây
+        setTimeout(() => {
+            location.reload();
+        }, 7000);
+    }
+
+    function createAshes() {
+        // Sử dụng lại logic tạo hạt tro từ trang Record.php nhưng bay cao hơn
+        for (let i = 0; i < 30; i++) {
+            const ash = document.createElement('div');
+            ash.className = 'fixed pointer-events-none w-2 h-2 bg-black rounded-full z-[300]';
+            ash.style.left = Math.random() * window.innerWidth + 'px';
+            ash.style.top = '80vh';
+            document.body.appendChild(ash);
+
+            gsap.to(ash, {
+                x: (Math.random() - 0.5) * 200,
+                y: -window.innerHeight,
+                opacity: 0,
+                rotation: 720,
+                duration: 2 + Math.random() * 2,
+                onComplete: () => ash.remove()
+            });
+        }
+    }
 
     //----------------------------- section 4 ----------------------------- //
 
