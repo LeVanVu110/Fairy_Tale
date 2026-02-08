@@ -21,6 +21,18 @@
         }
 
         /* ----------------------------- section 2 -----------------------------  */
+        /* Hiệu ứng "Mực loang tiêu đề" */
+        .story-card:hover .story-title {
+            color: #7a1a1a;
+            /* Burgundy (Đỏ rượu chát) */
+            text-shadow: 0.5px 0.5px 1px rgba(122, 26, 26, 0.2);
+        }
+
+        /* Hiệu ứng phóng to thẻ nhẹ nhàng */
+        .story-card {
+            perspective: 1000px;
+            /* Cần thiết cho hiệu ứng Tilt 3D */
+        }
 
         /* ----------------------------- section 3 -----------------------------  */
 
@@ -79,6 +91,84 @@
     </section>
 
     <!-- ----------------------------- section 2 -----------------------------  -->
+    <section id="story-grid" class="relative py-20 px-6 bg-[#fcfaf5] overflow-hidden">
+        <div class="container mx-auto max-w-7xl">
+
+            <div class="mb-12 text-center md:text-left">
+                <h2 class="font-gothic text-3xl md:text-4xl uppercase tracking-widest border-b border-[#3d2b1f]/20 inline-block pb-2">
+                    Kho Tàng Di Sản
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12" id="grid-container">
+
+                <div class="story-card group md:col-span-2 relative p-4 border border-[#3d2b1f]/30 bg-[#fdfbf7] shadow-sm transition-all duration-500">
+                    <div class="absolute top-1 left-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute top-1 right-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute bottom-1 left-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute bottom-1 right-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+
+                    <div class="overflow-hidden mb-4 aspect-[16/9] md:aspect-video">
+                        <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?q=80&w=2070&auto=format&fit=crop"
+                            class="w-full h-full object-cover sepia-[0.3] group-hover:sepia-0 transition-all duration-700" alt="Story 1">
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="story-title text-xl md:text-2xl font-bold transition-colors duration-500">Bạch Tuyết và Bảy Chú Lùn</h3>
+                        <p class="text-xs uppercase tracking-widest opacity-60">Nguồn gốc: Truyện cổ Grimm</p>
+                    </div>
+                </div>
+
+                <div class="story-card group relative p-4 border border-[#3d2b1f]/30 bg-[#fdfbf7] shadow-sm">
+                    <div class="absolute top-1 left-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute top-1 right-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute bottom-1 left-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute bottom-1 right-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+
+                    <div class="overflow-hidden mb-4 aspect-square">
+                        <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1974&auto=format&fit=crop"
+                            class="w-full h-full object-cover sepia-[0.3] group-hover:sepia-0 transition-all duration-700" alt="Story 2">
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="story-title text-xl font-bold transition-colors duration-500">Sự Tích Trầu Cau</h3>
+                        <p class="text-xs uppercase tracking-widest opacity-60">Dân gian Việt Nam</p>
+                    </div>
+                </div>
+
+                <div class="story-card group relative p-4 border border-[#3d2b1f]/30 bg-[#fdfbf7] shadow-sm">
+                    <div class="absolute top-1 left-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute top-1 right-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute bottom-1 left-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute bottom-1 right-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+
+                    <div class="overflow-hidden mb-4 aspect-square">
+                        <img src="https://truyencotich.top/storage/img/oxpoyAGfLTvxPBNksDHdyMUM78GlTlgchcYp8htf.webp"
+                            class="w-full h-full object-cover sepia-[0.3] group-hover:sepia-0 transition-all duration-700" alt="Story 3">
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="story-title text-xl font-bold transition-colors duration-500">Bộ Quần Áo Mới Của Hoàng Đế</h3>
+                        <p class="text-xs uppercase tracking-widest opacity-60">Truyện cổ Andersen</p>
+                    </div>
+                </div>
+
+                <div class="story-card group relative p-4 border border-[#3d2b1f]/30 bg-[#fdfbf7] shadow-sm">
+                    <div class="absolute top-1 left-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute top-1 right-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute bottom-1 left-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+                    <div class="absolute bottom-1 right-1"><i class="ri-asterisk text-[10px] opacity-30"></i></div>
+
+                    <div class="overflow-hidden mb-4 aspect-square">
+                        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=1974&auto=format&fit=crop"
+                            class="w-full h-full object-cover sepia-[0.3] group-hover:sepia-0 transition-all duration-700" alt="Story 4">
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="story-title text-xl font-bold transition-colors duration-500">Nghìn Lẻ Một Đêm</h3>
+                        <p class="text-xs uppercase tracking-widest opacity-60">Dân gian Ả Rập</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
 
     <!-- ----------------------------- section 3 -----------------------------  -->
 
@@ -184,6 +274,58 @@
     });
 
     // -----------------------------section 2 ----------------------------- //
+    // 1. Hiệu ứng "Lật thẻ" nhẹ (The Tilt Effect) dùng Vanilla GSAP
+    const cards = document.querySelectorAll('.story-card');
+
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            if (window.innerWidth < 1024) return; // Chỉ chạy trên Desktop
+
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = (y - centerY) / 15;
+            const rotateY = (centerX - x) / 15;
+
+            gsap.to(card, {
+                rotateX: rotateX,
+                rotateY: rotateY,
+                scale: 1.02,
+                duration: 0.5,
+                ease: "power2.out"
+            });
+        });
+
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card, {
+                rotateX: 0,
+                rotateY: 0,
+                scale: 1,
+                duration: 0.5,
+                ease: "power2.out"
+            });
+        });
+    });
+
+    // 2. Hiệu ứng "Scroll Reveal" (Dành cho cả Desktop và đặc biệt là Mobile)
+    gsap.utils.toArray('.story-card').forEach((card, i) => {
+        gsap.from(card, {
+            scrollTrigger: {
+                trigger: card,
+                start: "top bottom-=100",
+                toggleActions: "play none none reverse"
+            },
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            ease: "power3.out",
+            delay: i % 3 * 0.1 // Stagger hiệu ứng cho đẹp
+        });
+    });
 
     //----------------------------- section 3 ----------------------------- //
 
