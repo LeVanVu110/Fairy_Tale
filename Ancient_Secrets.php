@@ -240,6 +240,87 @@
         }
 
         /* ----------------------------- section 3 -----------------------------  */
+        /* ----------------------------- Section 3: The Great Awakening ----------------------------- */
+        #great-awakening {
+            display: none !important;
+            ;
+            /* Chỉ hiện khi giải mã xong */
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: #000;
+            overflow: hidden;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            /* Tránh cản trở click khi đang ẩn */
+        }
+
+        /* Hiệu ứng tia sáng xuyên thấu */
+        .light-rays {
+            position: absolute;
+            width: 200vmax;
+            height: 200vmax;
+            background: conic-gradient(from 0deg,
+                    transparent 0%,
+                    rgba(255, 215, 0, 0.3) 10%,
+                    transparent 20%,
+                    rgba(255, 215, 0, 0.3) 30%,
+                    transparent 40%);
+            animation: rotateRays 20s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes rotateRays {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Cuốn sách thần thoại bay lên */
+        .mythical-scroll {
+            position: relative;
+            z-index: 10;
+            width: 300px;
+            filter: drop-shadow(0 0 30px #ffd700);
+            animation: floatScroll 3s ease-in-out infinite;
+        }
+
+        @keyframes floatScroll {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(2deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(-2deg);
+            }
+        }
+
+        /* Bức tường vinh danh */
+        .scholars-wall {
+            margin-top: 30px;
+            font-family: 'Cinzel Decorative', serif;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            opacity: 0;
+        }
+
+        /* Mobile Haptic & Glow */
+        @media (max-width: 768px) {
+            .mythical-scroll {
+                width: 200px;
+            }
+
+            .light-rays {
+                opacity: 0.5;
+            }
+        }
 
         /* ----------------------------- section 4 -----------------------------  */
 
@@ -317,6 +398,29 @@
     </section>
 
     <!-- ----------------------------- section 3 -----------------------------  -->
+    <section id="great-awakening">
+        <div class="light-rays"></div>
+        <canvas id="particle-canvas" class="absolute inset-0 z-[5]"></canvas>
+
+        <div class="mythical-scroll text-center">
+            <div class="text-[100px] mb-6">📜</div>
+            <h2 class="font-gothic text-4xl text-[#ffd700] tracking-[0.3em] mb-4">THỨC TỈNH</h2>
+            <p class="font-serif italic text-[#f2e8cf] opacity-80">"Sự thật không còn bị che khuất bởi thời gian..."</p>
+        </div>
+
+        <div class="scholars-wall z-20 text-center" id="victory-ui">
+            <input type="text" id="scholar-name" placeholder="Khắc tên bạn..."
+                class="bg-transparent border-b border-[#ffd700] text-[#ffd700] text-center outline-none p-2 mb-4">
+            <br>
+            <button onclick="saveToWall()" class="bg-[#ffd700] text-black px-6 py-2 font-bold tracking-widest hover:bg-white transition-all">
+                LƯU DANH SỬ SÁCH
+            </button>
+        </div>
+
+        <div id="amuard-badge" class="fixed bottom-10 right-10 w-20 h-20 opacity-0 z-50">
+            <img src="https://cdn-icons-png.flaticon.com/512/2312/2312415.png" class="w-full animate-spin-slow" alt="Amulet">
+        </div>
+    </section>
 
     <!-- ----------------------------- section 4 -----------------------------  -->
 
@@ -454,7 +558,6 @@
         const total = document.querySelectorAll('.stone-slot').length;
 
         if (filled === total) {
-            // Hiệu ứng Glow of Truth: Biến cổ ngữ thành chữ Latin
             const translation = ["M", "A", "G", "I", "C"];
             document.querySelectorAll('.stone-slot .rune-tile').forEach((tile, i) => {
                 gsap.to(tile, {
@@ -465,11 +568,14 @@
                         tile.innerText = translation[i];
                         tile.style.color = "#fff";
                         tile.style.textShadow = "0 0 10px #00f2ff";
+
+                        // Khi đến chữ cuối cùng thì kích hoạt Section 3
+                        if (i === total - 1) {
+                            setTimeout(triggerGreatAwakening, 1000);
+                        }
                     }
                 });
             });
-
-            setTimeout(() => alert("Lời nguyền đã được hóa giải!"), 2000);
         }
     }
 
@@ -486,6 +592,91 @@
     }
 
     //----------------------------- section 3 ----------------------------- //
+    function triggerGreatAwakening() {
+        const awakeningSec = document.getElementById('great-awakening');
+
+        // Hiện section ra
+        awakeningSec.style.setProperty('display', 'flex', 'important');
+        awakeningSec.style.pointerEvents = 'auto';
+
+        // Các hiệu ứng GSAP đi kèm
+        gsap.from(awakeningSec, {
+            opacity: 0,
+            duration: 1.5
+        });
+
+        if (window.navigator.vibrate) {
+            window.navigator.vibrate([100, 50, 100, 50, 300]);
+        }
+
+        initParticleRain();
+
+        gsap.to("#victory-ui", {
+            opacity: 1,
+            y: -20,
+            duration: 1,
+            delay: 2
+        });
+        gsap.to("#amuard-badge", {
+            opacity: 1,
+            scale: 1.2,
+            duration: 1,
+            delay: 3
+        });
+    }
+
+    // Hệ thống hạt Particle Rain bằng Canvas
+    function initParticleRain() {
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const runes = ["ᚠ", "ᚦ", "ᚨ", "ᚱ", "ᚲ", "ᚷ", "ᚹ", "ᚺ"];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 100;
+                this.char = runes[Math.floor(Math.random() * runes.length)];
+                this.speed = Math.random() * 3 + 1;
+                this.opacity = 1;
+                this.size = Math.random() * 20 + 10;
+            }
+            update() {
+                this.y -= this.speed;
+                this.opacity -= 0.005;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 215, 0, ${this.opacity})`;
+                ctx.font = `${this.size}px serif`;
+                ctx.fillText(this.char, this.x, this.y);
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (particles.length < 100) particles.push(new Particle());
+            particles.forEach((p, i) => {
+                p.update();
+                p.draw();
+                if (p.opacity <= 0) particles.splice(i, 1);
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    }
+
+    function saveToWall() {
+        const name = document.getElementById('scholar-name').value;
+        if (name) {
+            alert(`Hỡi ${name}, tên của ngươi đã được khắc lên vách đá ngàn năm!`);
+            // Tại đây có thể đổi Theme trang web vĩnh viễn
+            document.body.classList.add('awakened-theme');
+            window.location.href = "index.php"; // Đưa về trang chủ với diện mạo mới
+        }
+    }
 
     //----------------------------- section 4 ----------------------------- //
 
