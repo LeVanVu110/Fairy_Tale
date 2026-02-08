@@ -33,7 +33,7 @@
                 <nav>
                     <ul class="space-y-2">
                         <li><a href="Ancient_Secrets.php" class="footer-link opacity-70 hover:opacity-100 transition-all duration-500 text-sm tracking-widest">BÍ MẬT CỔ NGỮ</a></li>
-                        <li><a href="#" class="footer-link opacity-70 hover:opacity-100 transition-all duration-500 text-sm tracking-widest">BẢN ĐỒ VIỄN THÁM</a></li>
+                        <li><a href="Explorer’s_Atlas.php" class="footer-link opacity-70 hover:opacity-100 transition-all duration-500 text-sm tracking-widest">BẢN ĐỒ VIỄN THÁM</a></li>
                         <li><a href="Alchemist's_Study.php" class="footer-link opacity-70 hover:opacity-100 transition-all duration-500 text-sm tracking-widest">LIÊN HỆ PHÁP SƯ</a></li>
                     </ul>
                 </nav>
