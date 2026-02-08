@@ -38,7 +38,130 @@
             filter: brightness(0.8);
         }
 
-        /* ----------------------------- section 2 -----------------------------  */
+        /* ----------------------------- section 2 ----------------------------- */
+        #hall-of-whispers {
+            perspective: 1000px;
+        }
+
+        /* Kệ gỗ */
+        .wooden-shelf {
+            background: #3d2b1f;
+            height: 12px;
+            width: 100%;
+            position: relative;
+            border-radius: 2px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), inset 0 2px 2px rgba(255, 255, 255, 0.1);
+            margin-bottom: 8rem;
+        }
+
+        /* Container chứa sách trên kệ */
+        .books-row {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 2px;
+            transform-style: preserve-3d;
+        }
+
+        /* Cấu trúc một cuốn sách */
+        .book-item {
+            position: relative;
+            margin: 0 2px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform-origin: bottom center;
+            cursor: pointer;
+        }
+
+        /* Gáy sách */
+        .book-spine {
+            background: var(--book-color, #7a1a1a);
+            width: var(--book-width, 30px);
+            height: var(--book-height, 180px);
+            border-radius: 2px 2px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Chữ in vàng kim trên gáy */
+        .spine-title {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            color: rgba(184, 134, 11, 0.8);
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            /* Hiệu ứng Metallic quét qua */
+            background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
+            background-size: 200% 100%;
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+
+        .book-item:hover .spine-title {
+            animation: goldSweep 1.5s infinite;
+        }
+
+        @keyframes goldSweep {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Hiệu ứng rút sách ra */
+        .book-item:hover {
+            transform: translateZ(50px) scale(1.1);
+            margin: 0 15px;
+            /* Dạt các cuốn bên cạnh */
+            z-index: 50;
+        }
+
+        /* Teaser hiện ra khi hover lâu */
+        .book-teaser {
+            position: absolute;
+            left: 100%;
+            bottom: 20%;
+            width: 200px;
+            padding: 15px;
+            background: rgba(253, 251, 247, 0.95);
+            border-left: 3px solid #b8860b;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s 0.3s;
+            font-size: 12px;
+            font-style: italic;
+            box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .book-item:hover .book-teaser {
+            opacity: 1;
+        }
+
+        /* Mobile: Kệ đơn tập trung */
+        @media (max-width: 768px) {
+            .books-row {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding: 20px;
+            }
+
+            .book-item {
+                transform: scale(0.9);
+            }
+
+            .book-item.center-focus {
+                transform: scale(1.1) translateY(-10px);
+                z-index: 50;
+            }
+        }
 
         /* ----------------------------- section 3 -----------------------------  */
 
@@ -101,6 +224,55 @@
     </section>
 
     <!-- ----------------------------- section 2 -----------------------------  -->
+    <section id="hall-of-whispers" class="py-24 bg-[#1a120b]">
+        <div class="container mx-auto px-4">
+
+            <div class="shelf-category mb-20">
+                <h2 class="font-gothic text-[#b8860b] text-xl mb-4 ml-10 opacity-60 tracking-[0.4em]">SINH VẬT HUYỀN BÍ</h2>
+
+                <div class="books-row">
+                    <div class="book-item" style="--book-color: #4a0e0e; --book-height: 200px; --book-width: 35px;">
+                        <div class="book-spine">
+                            <span class="spine-title">Kỳ Lân Truyện</span>
+                        </div>
+                        <div class="book-teaser">
+                            <h4 class="font-bold mb-1">Kỳ Lân Truyện</h4>
+                            <p>Hành trình tìm kiếm sinh vật mang máu bạc trong rừng thẳm...</p>
+                        </div>
+                    </div>
+
+                    <div class="book-item" style="--book-color: #1e2d24; --book-height: 185px; --book-width: 40px; transform: rotate(-3deg);">
+                        <div class="book-spine">
+                            <span class="spine-title">Bách Thú Quy</span>
+                        </div>
+                        <div class="book-teaser">
+                            <h4 class="font-bold mb-1">Bách Thú Quy</h4>
+                            <p>Vạn vật hữu linh, ghi chép về các linh thú từ thời hồng hoang.</p>
+                        </div>
+                    </div>
+
+                    <div class="book-item" style="--book-color: #2c3e50; --book-height: 195px; --book-width: 32px;">
+                        <div class="book-spine"><span class="spine-title">Long Tộc Ký</span></div>
+                    </div>
+                    <div class="book-item" style="--book-color: #5d4037; --book-height: 210px; --book-width: 45px; transform: rotate(2deg);">
+                        <div class="book-spine"><span class="spine-title">Hỏa Phượng Hoàng</span></div>
+                    </div>
+                </div>
+                <div class="wooden-shelf"></div>
+            </div>
+
+            <div class="shelf-category mb-20">
+                <h2 class="font-gothic text-[#b8860b] text-xl mb-4 ml-10 opacity-60 tracking-[0.4em]">DÂN GIAN THẾ GIỚI</h2>
+                <div class="books-row">
+                    <div class="book-item" style="--book-color: #3e2723; --book-height: 180px; --book-width: 38px;">
+                        <div class="book-spine"><span class="spine-title">Cổ Tích Grimm</span></div>
+                    </div>
+                </div>
+                <div class="wooden-shelf"></div>
+            </div>
+
+        </div>
+    </section>
 
     <!-- ----------------------------- section 3 -----------------------------  -->
 
@@ -192,6 +364,46 @@
     });
 
     // -----------------------------section 2 ----------------------------- //
+    document.addEventListener('DOMContentLoaded', function() {
+        const books = document.querySelectorAll('.book-item');
+
+        // 1. Hiệu ứng âm thanh khi lướt (Optional)
+        books.forEach(book => {
+            book.addEventListener('mouseenter', () => {
+                // Giả lập tiếng sột soạt nhẹ
+                const audio = new Audio('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-61905/zapsplat_leisure_game_board_game_piece_slide_wood_surface_001_62410.mp3');
+                audio.volume = 0.1;
+                audio.play().catch(() => {}); // Tránh lỗi trình duyệt chặn auto-play
+            });
+
+            // Đánh dấu đã đọc
+            book.addEventListener('click', () => {
+                book.classList.add('visited');
+                book.style.filter = "brightness(1.2)";
+            });
+        });
+
+        // 2. Mobile Center Focus
+        if (window.innerWidth < 768) {
+            const observerOptions = {
+                root: null,
+                threshold: 0.5,
+                rootMargin: "0px -40% 0px -40%"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('center-focus');
+                    } else {
+                        entry.target.classList.remove('center-focus');
+                    }
+                });
+            }, observerOptions);
+
+            books.forEach(book => observer.observe(book));
+        }
+    });
 
     //----------------------------- section 3 ----------------------------- //
 
