@@ -109,6 +109,135 @@
         }
 
         /* ----------------------------- section 2 -----------------------------  */
+        /* ----------------------------- Section 2: The Deciphering Altar ----------------------------- */
+        #deciphering-altar {
+            background: #120f0c;
+            min-height: 100vh;
+            padding: 80px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Phiến đá giải mã */
+        .decipher-slab {
+            background: #2a2a2a;
+            background-image: url('https://www.transparenttextures.com/patterns/padded-cells.png');
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 0 100px rgba(0, 0, 0, 0.5);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 900px;
+            border: 8px solid #3d3d3d;
+        }
+
+        /* Các rãnh trống trên đá */
+        .stone-slot {
+            width: 60px;
+            height: 80px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px inset #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .stone-slot.hint-drop::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 242, 255, 0.3);
+            animation: ripple 2s infinite;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Mảnh đá cổ ngữ (Tiles) */
+        .rune-tile {
+            width: 50px;
+            height: 70px;
+            background: #b8a681;
+            background-image: url('https://www.transparenttextures.com/patterns/granite.png');
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.5rem;
+            color: #3d2b1f;
+            cursor: grab;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+            user-select: none;
+        }
+
+        .rune-tile:active {
+            cursor: grabbing;
+        }
+
+        /* Bảng tra cứu (Legend) */
+        .parchment-legend {
+            position: absolute;
+            left: 20px;
+            top: 100px;
+            width: 180px;
+            background: #e6d5b8;
+            padding: 15px;
+            transform: rotate(-2deg);
+            font-family: 'Dancing Script', cursive;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+            border-left: 5px solid #7a1a1a;
+        }
+
+        /* Mobile: Bàn xoay cổ ngữ */
+        @media (max-width: 768px) {
+            .decipher-slab {
+                padding: 20px;
+                gap: 8px;
+            }
+
+            .stone-slot {
+                width: 45px;
+                height: 60px;
+            }
+
+            .parchment-legend {
+                position: static;
+                width: 90%;
+                margin-bottom: 20px;
+                transform: none;
+            }
+
+            .mobile-carousel {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: #1a120b;
+                padding: 20px;
+                display: flex;
+                gap: 15px;
+                overflow-x: auto;
+                border-top: 2px solid #b8860b;
+            }
+        }
 
         /* ----------------------------- section 3 -----------------------------  */
 
@@ -154,6 +283,38 @@
     </section>
 
     <!-- ----------------------------- section 2 -----------------------------  -->
+    <section id="deciphering-altar">
+        <div class="parchment-legend">
+            <h4 class="text-xs uppercase font-bold mb-2">Bản đồ Cổ ngữ</h4>
+            <div class="space-y-1 text-sm">
+                <p>ᚠ : A (Đã tìm thấy)</p>
+                <p>ᚦ : B (Thất lạc...)</p>
+                <p class="opacity-30">ᚱ : ?????</p>
+            </div>
+        </div>
+
+        <h3 class="font-gothic text-[#b8860b] mb-12 tracking-widest text-center">GIẢI MÃ LỜI NGUYỀN</h3>
+
+        <div class="decipher-slab" id="drop-zone">
+            <div class="stone-slot" data-answer="ᛗ"></div>
+            <div class="stone-slot hint-drop" data-answer="ᚨ"></div>
+            <div class="stone-slot" data-answer="ᚷ"></div>
+            <div class="stone-slot" data-answer="ᛁ"></div>
+            <div class="stone-slot" data-answer="ᚲ"></div>
+        </div>
+
+        <div class="mt-16 flex flex-wrap justify-center gap-6" id="tile-source">
+            <div class="rune-tile" draggable="true" ondragstart="drag(event)" id="tile1">ᛗ</div>
+            <div class="rune-tile" draggable="true" ondragstart="drag(event)" id="tile2">ᚨ</div>
+            <div class="rune-tile" draggable="true" ondragstart="drag(event)" id="tile3">ᚷ</div>
+            <div class="rune-tile" draggable="true" ondragstart="drag(event)" id="tile4">ᛁ</div>
+            <div class="rune-tile" draggable="true" ondragstart="drag(event)" id="tile5">ᚲ</div>
+            <div class="rune-tile" draggable="true" ondragstart="drag(event)" id="tile6">ᚦ</div>
+        </div>
+
+        <div class="md:hidden mobile-carousel" id="mobile-tray">
+        </div>
+    </section>
 
     <!-- ----------------------------- section 3 -----------------------------  -->
 
@@ -244,6 +405,85 @@
     }
 
     // -----------------------------section 2 ----------------------------- //
+    // Cấu hình Drag & Drop
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    document.querySelectorAll('.stone-slot').forEach(slot => {
+        slot.addEventListener('dragover', (e) => e.preventDefault());
+
+        slot.addEventListener('drop', function(ev) {
+            ev.preventDefault();
+            const tileId = ev.dataTransfer.getData("text");
+            const tile = document.getElementById(tileId);
+            const expectedRune = this.getAttribute('data-answer');
+
+            if (tile.innerText === expectedRune) {
+                // Đúng: Snap-to-place
+                this.appendChild(tile);
+                tile.style.cursor = "default";
+                tile.draggable = false;
+
+                // Hiệu ứng ánh sáng vàng
+                gsap.to(tile, {
+                    backgroundColor: "#ffd700",
+                    duration: 0.5
+                });
+                new Audio('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-one/foley_stone_scrape_rough_001.mp3').play();
+
+                checkWin();
+            } else {
+                // Sai: Rung lắc đá
+                gsap.to(this, {
+                    x: 5,
+                    repeat: 5,
+                    yoyo: true,
+                    duration: 0.05,
+                    clearProps: "x"
+                });
+                const errorSound = new Audio('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-61905/zapsplat_horror_hit_distorted_002.mp3');
+                errorSound.volume = 0.2;
+                errorSound.play();
+            }
+        });
+    });
+
+    function checkWin() {
+        const filled = document.querySelectorAll('.stone-slot .rune-tile').length;
+        const total = document.querySelectorAll('.stone-slot').length;
+
+        if (filled === total) {
+            // Hiệu ứng Glow of Truth: Biến cổ ngữ thành chữ Latin
+            const translation = ["M", "A", "G", "I", "C"];
+            document.querySelectorAll('.stone-slot .rune-tile').forEach((tile, i) => {
+                gsap.to(tile, {
+                    rotationY: 360,
+                    duration: 1,
+                    delay: i * 0.2,
+                    onComplete: () => {
+                        tile.innerText = translation[i];
+                        tile.style.color = "#fff";
+                        tile.style.textShadow = "0 0 10px #00f2ff";
+                    }
+                });
+            });
+
+            setTimeout(() => alert("Lời nguyền đã được hóa giải!"), 2000);
+        }
+    }
+
+    // Mobile: Lắc để xóa (Gia tốc kế)
+    if (typeof DeviceMotionEvent.requestPermission === 'function') {
+        // Xử lý quyền trên iOS
+    } else {
+        window.addEventListener('devicemotion', (e) => {
+            const acc = e.accelerationIncludingGravity;
+            if (Math.abs(acc.x) > 15 || Math.abs(acc.y) > 15) {
+                location.reload(); // Đơn giản là reset lại bàn cờ
+            }
+        });
+    }
 
     //----------------------------- section 3 ----------------------------- //
 
