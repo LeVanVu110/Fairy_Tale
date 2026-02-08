@@ -112,9 +112,9 @@
         </div>
     </div>
 
-    <main class="pt-40 h-[150vh] p-10 text-center">
+    <!-- <main class="pt-40 h-[150vh] p-10 text-center">
         <p class="italic">Nội dung trang web bắt đầu từ đây...</p>
-    </main>
+    </main> -->
 
     <script>
         // Đăng ký thư viện GSAP
