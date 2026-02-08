@@ -237,6 +237,89 @@
         }
 
         /* ----------------------------- section 3 -----------------------------  */
+        /* ----------------------------- Section 3: The Sealed Destiny ----------------------------- */
+        #sealed-destiny {
+            background: #1a120b;
+            padding: 100px 0;
+            color: #f2e8cf;
+            border-top: 2px dashed #b8860b;
+            position: relative;
+        }
+
+        /* Khay con dấu */
+        .seal-tray {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .seal-tool {
+            width: 60px;
+            height: 60px;
+            background: #7a1a1a;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #b8860b;
+            transition: all 0.3s;
+            font-size: 1.5rem;
+        }
+
+        .seal-tool:hover {
+            transform: translateY(-10px) rotate(15deg);
+            box-shadow: 0 10px 20px rgba(184, 134, 11, 0.4);
+        }
+
+        .seal-tool.active {
+            background: #ff4500;
+            box-shadow: 0 0 20px #ff4500;
+        }
+
+        /* Khu vực ký tên */
+        #signature-pad {
+            border: 1px solid #b8860b;
+            background: rgba(242, 232, 207, 0.9);
+            cursor: crosshair;
+            border-radius: 5px;
+        }
+
+        /* Hòm thư đồng */
+        .mailbox-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .mailbox-icon {
+            font-size: 5rem;
+            color: #b8860b;
+            cursor: pointer;
+            transition: transform 0.5s;
+        }
+
+        .mailbox-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Hiệu ứng bóng chim quạ bay qua */
+        .raven-shadow {
+            position: fixed;
+            top: 20%;
+            left: -200px;
+            font-size: 100px;
+            color: rgba(0, 0, 0, 0.6);
+            pointer-events: none;
+            z-index: 1000;
+            filter: blur(5px);
+        }
+
+        @media (max-width: 768px) {
+            .seal-tray {
+                flex-wrap: wrap;
+            }
+        }
 
         /* ----------------------------- section 4 -----------------------------  */
 
@@ -322,6 +405,42 @@
     </section>
 
     <!-- ----------------------------- section 3 -----------------------------  -->
+    <section id="sealed-destiny">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="font-gothic text-[#b8860b] text-xl tracking-[0.4em] mb-10">PHONG ẤN ĐỊNH MỆNH</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
+                <div class="wax-melting-station">
+                    <div class="candle-glow mb-4"><i class="ri-fire-fill text-orange-500 text-4xl animate-pulse"></i></div>
+                    <p class="font-serif italic text-sm opacity-60">Sáp nóng đang chờ đợi...</p>
+                    <div class="mt-4 flex justify-center gap-2">
+                        <div class="w-6 h-6 bg-[#7a1a1a] rounded-full cursor-pointer border border-white"></div>
+                        <div class="w-6 h-6 bg-[#1a3a3a] rounded-full cursor-pointer border border-white"></div>
+                    </div>
+                </div>
+
+                <div class="seal-and-sign">
+                    <p class="font-gothic text-xs mb-4">KÝ TÊN VÀ CHỌN ẤN KÝ</p>
+                    <canvas id="signature-pad" width="300" height="150" class="mx-auto mb-6"></canvas>
+
+                    <div class="seal-tray">
+                        <div class="seal-tool" onclick="selectSeal(this, '🌙')">🌙</div>
+                        <div class="seal-tool" onclick="selectSeal(this, '⚔️')">⚔️</div>
+                        <div class="seal-tool" onclick="selectSeal(this, '🌿')">🌿</div>
+                    </div>
+                </div>
+
+                <div class="mailbox-container">
+                    <div class="mailbox-icon" id="send-btn" onclick="sendRavenMessage()">
+                        <i class="ri-mail-send-line"></i>
+                    </div>
+                    <p class="mt-4 font-serif italic text-sm">Gửi tin cho bầy Quạ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="raven-effect" class="raven-shadow"><i class="ri-送信-fill"></i></div>
 
     <!-- ----------------------------- section 4 -----------------------------  -->
 
@@ -505,6 +624,79 @@
     });
 
     //----------------------------- section 3 ----------------------------- //
+    // Khởi tạo Canvas cho chữ ký
+    const canvas = document.getElementById('signature-pad');
+    const ctx = canvas.getContext('2d');
+    let writing = false;
+
+    canvas.addEventListener('mousedown', () => writing = true);
+    canvas.addEventListener('mouseup', () => {
+        writing = false;
+        ctx.beginPath();
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+        if (!writing) return;
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#3d2b1f';
+
+        // Thuật toán làm mượt nét vẽ (Simple line)
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+    });
+
+    function selectSeal(el, icon) {
+        document.querySelectorAll('.seal-tool').forEach(s => s.classList.remove('active'));
+        el.classList.add('active');
+        // Hiệu ứng âm thanh "cộp"
+        new Audio('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-61905/zapsplat_leisure_game_board_game_piece_slide_wood_surface_001_62410.mp3').play();
+    }
+
+    function sendRavenMessage() {
+        const btn = document.getElementById('send-btn');
+        const raven = document.getElementById('raven-effect');
+
+        // 1. Hiệu ứng Rung màn hình
+        gsap.to("body", {
+            x: 10,
+            duration: 0.05,
+            repeat: 10,
+            yoyo: true
+        });
+
+        // 2. Bóng chim bay qua
+        gsap.fromTo(raven, {
+            left: "-200px",
+            opacity: 0,
+            scale: 1
+        }, {
+            left: "120%",
+            opacity: 0.5,
+            scale: 2,
+            duration: 2,
+            ease: "power1.inOut"
+        });
+
+        // 3. Bản thảo biến mất (The Disappearing Act)
+        const mainEditor = document.getElementById('main-editor');
+        gsap.to(mainEditor, {
+            y: -500,
+            rotation: 10,
+            opacity: 0,
+            duration: 1.5,
+            ease: "back.in(1.7)",
+            onComplete: () => {
+                alert("Bản thảo đã được Quạ đưa vào cõi hư vô.");
+                // Reset trang hoặc lưu dữ liệu
+                location.reload();
+            }
+        });
+
+        // Phát âm thanh cánh chim
+        const wingSound = new Audio('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-one/foley_bird_wings_flap_001.mp3');
+        wingSound.play();
+    }
 
     //----------------------------- section 4 ----------------------------- //
 
