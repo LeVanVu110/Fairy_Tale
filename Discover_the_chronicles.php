@@ -152,6 +152,81 @@
         }
 
         /* ----------------------------- section 2 -----------------------------  */
+        /* Hiệu ứng mảnh giấy da */
+        .parchment-fragment {
+            /* Đảm bảo nội dung không bị cắt khi con số tràn ra ngoài một chút */
+            position: relative;
+            clip-path: polygon(2% 0%, 98% 1%, 100% 98%, 1% 100%, 0% 50%);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: #fdfbf7;
+            z-index: 5;
+        }
+
+        .milestone.active .parchment-fragment {
+            transform: scale(1.05);
+        }
+
+        .date-stamp {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 900;
+            line-height: 1;
+            pointer-events: none;
+            z-index: 10;
+            /* Đảm bảo nằm trên lớp giấy */
+            color: #7a1a1a;
+            opacity: 0.1;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Khi cuộn tới (active), con số sẽ hiện rõ hơn */
+        .milestone.active .date-stamp {
+            opacity: 0.25;
+        }
+
+        .milestone.active .parchment-fragment {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(61, 43, 31, 0.15);
+        }
+
+        /* Bánh răng trục giữa */
+        .gear-node {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fcfaf5;
+            border: 1px solid rgba(184, 134, 11, 0.3);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(184, 134, 11, 0.2);
+        }
+
+        /* Mobile Responsive adjustments */
+        @media (max-width: 768px) {
+            #main-thread {
+                left: 30px !important;
+                transform: none !important;
+            }
+
+            .milestone {
+                align-items: flex-start !important;
+            }
+
+            .milestone-node {
+                margin-left: 5px !important;
+            }
+
+            .parchment-fragment {
+                margin-left: 20px !important;
+                width: calc(100% - 40px) !important;
+            }
+
+            .date-stamp {
+                font-size: 3rem !important;
+                top: -20px !important;
+                left: 10px !important;
+            }
+        }
 
         /* ----------------------------- section 3 -----------------------------  */
 
@@ -196,11 +271,114 @@
 
     </section>
 
-    <main class="h-[200vh] flex items-center justify-center bg-gray-100">
+    <main class="h-[30vh] flex items-center justify-center bg-gray-100">
         <p class="text-3xl text-gray-700 font-bold">Dòng thời gian bắt đầu từ đây...</p>
     </main>
 
     <!-- ----------------------------- section 2 -----------------------------  -->
+    <section id="weaver-thread" class="relative py-24 min-h-screen">
+
+        <div id="main-thread" class="absolute left-1/2 -translate-x-1/2 top-0 w-[2px] bg-[#3d2b1f]/10 h-0 z-0 origin-top"></div>
+
+        <div class="container mx-auto max-w-6xl px-6 relative z-10">
+
+            <div class="milestone flex flex-col md:flex-row items-center justify-between mb-[20vh] opacity-0 translate-y-20">
+                <div class="w-full md:w-[45%] relative order-2 md:order-1">
+                    <span class="date-stamp absolute -top-12 md:-top-16 -left-4 md:-left-8 text-6xl md:text-8xl">1200</span>
+
+                    <div class="parchment-fragment p-8 shadow-2xl border border-[#3d2b1f]/5">
+                        <h3 class="font-gothic text-2xl md:text-3xl mb-3">Vương Quốc Phù Du</h3>
+                        <p class="italic text-sm opacity-80 mb-6">Sự kiện: Đại dịch Đen bắt đầu lan rộng khắp Châu Âu, thay đổi bản đồ nhân loại mãi mãi.</p>
+                        <div class="w-full aspect-video bg-[#3d2b1f]/5 rounded-sm overflow-hidden border border-[#3d2b1f]/10">
+                            <img src="https://www.vietnammonpaysnatal.fr/wp-content/uploads/2016/11/founan.jpg"
+                                class="w-full h-full object-cover grayscale sepia-[0.2] hover:grayscale-0 transition-all duration-1000">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="milestone-node z-20 order-1 md:order-2 my-10 md:my-0">
+                    <div class="gear-node text-[#b8860b]">
+                        <i class="ri-settings-4-line text-2xl"></i>
+                    </div>
+                </div>
+
+                <div class="hidden md:block w-[45%] order-3"></div>
+            </div>
+
+            <div class="milestone flex flex-col md:flex-row items-center justify-between mb-[20vh] opacity-0 translate-y-20">
+                <div class="hidden md:block w-[45%] order-1"></div>
+
+                <div class="milestone-node z-20 order-2 my-10 md:my-0">
+                    <div class="gear-node text-[#b8860b]">
+                        <i class="ri-settings-4-line text-2xl"></i>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-[45%] relative order-3">
+                    <span class="date-stamp absolute -top-12 md:-top-16 -right-4 md:-right-8 text-6xl md:text-8xl">1789</span>
+
+                    <div class="parchment-fragment p-8 shadow-2xl border border-[#3d2b1f]/5">
+                        <h3 class="font-gothic text-2xl md:text-3xl mb-3">Vũ Điệu Chém Giết</h3>
+                        <p class="italic text-sm opacity-80 mb-6">Sự kiện: Ngọn lửa Cách mạng Pháp bùng cháy tại ngục Bastille, kỷ nguyên dân chủ bắt đầu.</p>
+                        <div class="w-full aspect-video bg-[#3d2b1f]/5 rounded-sm overflow-hidden border border-[#3d2b1f]/10">
+                            <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1000"
+                                class="w-full h-full object-cover grayscale sepia-[0.2] hover:grayscale-0 transition-all duration-1000">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        window.addEventListener('load', function() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 1. Hiệu ứng sợi chỉ tự vẽ (Growth Animation)
+            gsap.to("#main-thread", {
+                scrollTrigger: {
+                    trigger: "#weaver-thread",
+                    start: "top center",
+                    end: "bottom bottom",
+                    scrub: 1.5
+                },
+                height: "100%",
+                ease: "none"
+            });
+
+            // 2. Xử lý từng Milestone (Memory Fade & Snap)
+            gsap.utils.toArray('.milestone').forEach((stone, i) => {
+                const gear = stone.querySelector('.gear-node');
+
+                gsap.to(stone, {
+                    scrollTrigger: {
+                        trigger: stone,
+                        start: "top 80%",
+                        end: "top 40%",
+                        toggleActions: "play none none reverse",
+                        onEnter: () => stone.classList.add('active'),
+                        onLeaveBack: () => stone.classList.remove('active'),
+                    },
+                    opacity: 1,
+                    y: 0,
+                    duration: 1
+                });
+
+                // Hiệu ứng xoay bánh răng khi cuộn
+                gsap.to(gear, {
+                    scrollTrigger: {
+                        trigger: stone,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1
+                    },
+                    rotation: 360,
+                    ease: "none"
+                });
+            });
+        });
+    </script>
 
     <!-- ----------------------------- section 3 -----------------------------  -->
 
