@@ -146,6 +146,104 @@
         }
 
         /* ----------------------------- section 2 -----------------------------  */
+        /* ----------------------------- Section 2: Spirit Messengers ----------------------------- */
+        #spirit-messengers {
+            background: #0a0a0a;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.8s ease;
+        }
+
+        /* Hiệu ứng hào quang nhuộm màu toàn Section */
+        #spirit-messengers.owl-active {
+            background: #0a120a;
+        }
+
+        #spirit-messengers.mirror-active {
+            background: #0a1015;
+        }
+
+        #spirit-messengers.raven-active {
+            background: #120a15;
+        }
+
+        .messenger-card {
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: grayscale(0.8) brightness(0.6);
+            position: relative;
+        }
+
+        .messenger-card.active {
+            filter: grayscale(0) brightness(1.2);
+            transform: translateY(-20px) scale(1.1);
+        }
+
+        /* Bệ đá của linh thú */
+        .pedestal {
+            width: 100%;
+            height: 20px;
+            background: #222;
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 1);
+            margin-top: 20px;
+        }
+
+        /* Hào quang linh thú */
+        .aura {
+            position: absolute;
+            inset: -20px;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: -1;
+        }
+
+        .active .aura {
+            opacity: 0.4;
+        }
+
+        /* Thông tin linh thú (Parchment Tooltip) */
+        .spirit-desc {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            background: #e6d5b8;
+            color: #3d2b1f;
+            padding: 10px;
+            font-size: 0.8rem;
+            font-style: italic;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+            clip-path: polygon(0% 0%, 100% 5%, 95% 100%, 5% 95%);
+        }
+
+        .messenger-card:hover .spirit-desc,
+        .messenger-card.active .spirit-desc {
+            opacity: 1;
+            bottom: -100px;
+        }
+
+        /* Mobile Carousel */
+        @media (max-width: 768px) {
+            .messenger-grid {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding-bottom: 50px;
+            }
+
+            .messenger-card {
+                min-width: 80%;
+                scroll-snap-align: center;
+                margin: 0 10%;
+            }
+        }
 
         /* ----------------------------- section 3 -----------------------------  */
 
@@ -198,6 +296,39 @@
     </section>
 
     <!-- ----------------------------- section 2 -----------------------------  -->
+    <section id="spirit-messengers">
+        <div class="container mx-auto px-4">
+            <h2 class="font-gothic text-[#b8860b] text-xl text-center mb-20 tracking-[0.5em]">CHỌN LINH THÚ ĐƯA TIN</h2>
+
+            <div class="messenger-grid grid grid-cols-1 md:grid-cols-3 gap-20">
+
+                <div class="messenger-card text-center" onclick="selectSpirit(this, 'owl')" data-spirit="owl">
+                    <div class="aura bg-green-500"></div>
+                    <div class="spirit-visual text-8xl mb-4">🦉</div>
+                    <h3 class="font-gothic text-[#f2e8cf]">CÚ TUYẾT</h3>
+                    <div class="pedestal"></div>
+                    <div class="spirit-desc">"Vạn dặm xa xôi, thư điện tử sẽ được đưa đi một cách trang trọng nhất."</div>
+                </div>
+
+                <div class="messenger-card text-center" onclick="selectSpirit(this, 'mirror')" data-spirit="mirror">
+                    <div class="aura bg-blue-500"></div>
+                    <div class="spirit-visual text-8xl mb-4">🪞</div>
+                    <h3 class="font-gothic text-[#f2e8cf]">GƯƠNG SOI</h3>
+                    <div class="pedestal"></div>
+                    <div class="spirit-desc">"Sương khói mờ ảo, tin nhắn trực tiếp sẽ hiện ra trong nháy mắt."</div>
+                </div>
+
+                <div class="messenger-card text-center" onclick="selectSpirit(this, 'raven')" data-spirit="raven">
+                    <div class="aura bg-purple-600"></div>
+                    <div class="spirit-visual text-8xl mb-4">🐦‍⬛</div>
+                    <h3 class="font-gothic text-[#f2e8cf]">QUẠ ĐEN</h3>
+                    <div class="pedestal"></div>
+                    <div class="spirit-desc">"Trong bóng đêm sâu thẳm, bí mật của ngươi sẽ được giữ kín."</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
 
     <!-- ----------------------------- section 3 -----------------------------  -->
 
@@ -293,6 +424,58 @@
     });
 
     // -----------------------------section 2 ----------------------------- //
+    function selectSpirit(element, spiritType) {
+        // 1. Reset các trạng thái trước đó
+        document.querySelectorAll('.messenger-card').forEach(card => card.classList.remove('active'));
+        const section = document.getElementById('spirit-messengers');
+        section.className = ''; // Reset background class
+
+        // 2. Kích hoạt linh thú mới
+        element.classList.add('active');
+        section.classList.add(`${spiritType}-active`);
+
+        // 3. Hiệu ứng âm thanh tinh tế (Sử dụng link âm thanh mẫu)
+        let audioSrc = '';
+        switch (spiritType) {
+            case 'owl':
+                audioSrc = 'https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-four-line/zapsplat_nature_bird_owl_hoot_001.mp3';
+                break;
+            case 'mirror':
+                audioSrc = 'https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-61905/zapsplat_magic_spell_shimmer_glow_001_62051.mp3';
+                break;
+            case 'raven':
+                audioSrc = 'https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-one/foley_bird_wings_flap_001.mp3';
+                break;
+        }
+
+        const spiritAudio = new Audio(audioSrc);
+        spiritAudio.volume = 0.2; // Để âm lượng nhỏ tránh giật mình
+        spiritAudio.play();
+
+        // 4. Mobile Haptic
+        if (window.navigator.vibrate) {
+            window.navigator.vibrate(30);
+        }
+
+        // 5. Hiệu ứng xòe cánh/gợn sóng bằng GSAP
+        gsap.fromTo(element.querySelector('.spirit-visual'), {
+            scale: 1
+        }, {
+            scale: 1.2,
+            duration: 0.3,
+            yoyo: true,
+            repeat: 1,
+            ease: "power2.out"
+        });
+    }
+
+    // Mobile: Theo dõi việc cuộn Carousel để tự động kích hoạt
+    const grid = document.querySelector('.messenger-grid');
+    if (window.innerWidth < 768) {
+        grid.addEventListener('scroll', () => {
+            // Logic để phát hiện card nào đang ở giữa màn hình và add class .active
+        });
+    }
 
     //----------------------------- section 3 ----------------------------- //
 
