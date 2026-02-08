@@ -163,7 +163,140 @@
             }
         }
 
-        /* ----------------------------- section 3 -----------------------------  */
+        /* ----------------------------- section 3 ----------------------------- */
+        /* ----------------------------- section 3: The Sanctuary ----------------------------- */
+        #secret-nook {
+            background: #0f0a06;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            /* Đảm bảo luôn đủ chiều cao */
+            display: flex;
+            align-items: center;
+            z-index: 1;
+        }
+
+        /* Hiệu ứng Spotlight */
+        .spotlight-overlay {
+            position: absolute;
+            inset: 0;
+            /* Spotlight tập trung hơn */
+            background: radial-gradient(circle at var(--light-x, 50%) var(--light-y, 50%),
+                    transparent 5%,
+                    rgba(0, 0, 0, 0.95) 35%);
+            pointer-events: none;
+            /* Quan trọng: Để có thể click xuyên qua lớp đen */
+            z-index: 5;
+        }
+
+        /* Sửa lỗi chồng sách bị quá khít */
+        .manuscript-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: -40px;
+            /* Giảm độ chồng lấp để dễ nhìn hơn */
+        }
+
+        /* Đảm bảo nội dung nằm trên Spotlight */
+        #secret-nook .container {
+            position: relative;
+            z-index: 20;
+        }
+
+        /* Ánh nến bập bùng */
+        /* Ánh nến bập bùng */
+        .candle-glow {
+            position: absolute;
+            width: 8px;
+            height: 15px;
+            background: #ffa500;
+            border-radius: 50% 50% 20% 20%;
+            filter: blur(2px);
+            box-shadow: 0 0 15px #ff4500, 0 0 30px #ff8c00;
+            animation: flicker 0.2s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% {
+                transform: scale(1) opacity(0.8) rotate(-2deg);
+            }
+
+            100% {
+                transform: scale(1.1) opacity(1) rotate(2deg);
+                filter: blur(4px);
+            }
+        }
+
+        .manuscript-card {
+            background: #f2e8cf;
+            border-left: 10px solid #5a1414;
+            box-shadow: -10px 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+            transform: rotateX(5deg);
+            margin-bottom: -120px;
+            /* Tạo hiệu ứng xếp lớp */
+        }
+
+        .manuscript-card:hover {
+            transform: rotateY(-10deg) translateZ(30px) translateY(-20px);
+            z-index: 100;
+            margin-bottom: 20px;
+            /* Đẩy các cuốn khác ra khi hover */
+        }
+
+        /* Hiệu ứng khói mực */
+        .ink-spirit {
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            width: 150px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(184, 134, 11, 0.15) 0%, transparent 70%);
+            filter: blur(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 1.5s ease;
+            transform: translateX(-50%) translateY(20px);
+        }
+
+        .inkwell-container:hover .ink-spirit {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-30px) scale(1.2);
+        }
+
+        /* Con dấu sáp (Wax Seals) */
+        .wax-seal-btn {
+            width: 65px;
+            height: 65px;
+            background: #7a1a1a;
+            border-radius: 50%;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6), 4px 4px 10px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f2e8cf;
+            border: 3px solid #5a1414;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .wax-seal-btn:active {
+            transform: scale(0.9);
+        }
+
+        @media (max-width: 768px) {
+            .manuscript-card {
+                width: 100% !important;
+                margin-bottom: 2rem;
+                margin-left: 0;
+            }
+
+            .spotlight-overlay {
+                background: radial-gradient(circle at center, transparent 20%, rgba(0, 0, 0, 0.85) 60%);
+            }
+        }
 
         /* ----------------------------- section 4 -----------------------------  */
 
@@ -275,6 +408,54 @@
     </section>
 
     <!-- ----------------------------- section 3 -----------------------------  -->
+    <section id="secret-nook">
+        <div class="spotlight-overlay" id="spotlight-layer"></div>
+
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-20">
+
+                <div class="w-full md:w-1/2 flex flex-col items-center md:items-start">
+                    <h3 class="font-gothic text-[#b8860b] text-xs mb-10 tracking-[0.4em] opacity-40 uppercase mt-5">Bản thảo dang dở</h3>
+
+                    <div class="manuscript-stack w-full flex flex-col items-center md:items-start">
+
+                        <div class="manuscript-card w-full max-w-[300px] h-80 p-8 flex flex-col justify-between">
+                            <div class="absolute -top-3 right-8 w-5 h-20 bg-[#7a1a1a] shadow-lg"></div>
+                            <div class="h-1 bg-[#7a1a1a]/20 w-full mb-4"></div>
+                            <h4 class="font-bold text-[#3d2b1f] text-xl">Sọ Dừa (18xx)</h4>
+                            <p class="text-xs italic text-[#3d2b1f]/70">"Trang 42 - Người mẹ uống nước trong cái sọ dừa bên gốc cây..."</p>
+                            <button class="text-[10px] font-bold text-[#7a1a1a] border-b border-[#7a1a1a]/30 w-fit">TIẾP TỤC</button>
+                        </div>
+
+                        <div class="manuscript-card w-full max-w-[300px] h-80 p-8 flex flex-col justify-between ms-5">
+                            <h4 class="font-bold text-[#3d2b1f] text-xl">Hồ Thiên Nga</h4>
+                            <p class="text-xs italic text-[#3d2b1f]/70">Gợi ý: Phiên bản cổ chưa qua chỉnh lý.</p>
+                            <button class="text-[10px] font-bold text-[#7a1a1a] border-b border-[#7a1a1a]/30 w-fit">MỞ KHÓA</button>
+                        </div>
+                        <div class="manuscript-card w-full max-w-[300px] h-80 p-8 flex flex-col justify-between ms-9">
+                            <h4 class="font-bold text-[#3d2b1f] text-xl">Tấm Cám</h4>
+                            <p class="text-xs italic text-[#3d2b1f]/70">Gợi ý: Phiên bản cổ chưa qua chỉnh lý.</p>
+                            <button class="text-[10px] font-bold text-[#7a1a1a] border-b border-[#7a1a1a]/30 w-fit">MỞ KHÓA</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 flex flex-col items-center">
+                    <div class="relative mb-12">
+                        <i class="ri-ink-bottle-line text-9xl text-[#b8860b]/20"></i>
+                        <div class="candle-glow top-0 right-0"></div>
+                    </div>
+
+                    <div class="bg-[#f2e8cf] p-8 shadow-2xl -rotate-2 border-l-4 border-[#3d2b1f]/20 max-w-sm">
+                        <p class="font-serif italic text-sm text-[#3d2b1f] leading-relaxed">
+                            "Nơi này dành cho những kẻ lữ hành biết dừng chân. Hãy chọn một bản thảo để tâm hồn được tĩnh tại."
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
 
     <!-- ----------------------------- section 4 -----------------------------  -->
 
@@ -406,6 +587,68 @@
     });
 
     //----------------------------- section 3 ----------------------------- //
+    // ----------------------------- logic section 3 ----------------------------- //
+    document.querySelector('#secret-nook').addEventListener('mousemove', (e) => {
+        const section = e.currentTarget;
+        const spotlight = document.getElementById('spotlight-layer');
+        const rect = section.getBoundingClientRect();
+
+        // Tính toán chuẩn xác vị trí tương đối
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+        // Sử dụng GSAP để mượt hơn thay vì gán trực tiếp
+        gsap.to(spotlight, {
+            "--light-x": `${x}%`,
+            "--light-y": `${y}%`,
+            duration: 0.3,
+            ease: "power1.out"
+        });
+    });
+
+    // Hiệu ứng "Thổi nến" trên Mobile
+    let isNookDark = false;
+
+    function toggleNookLight() {
+        const glow = document.querySelector('.candle-glow');
+        const spotlight = document.getElementById('spotlight-layer');
+
+        if (!isNookDark) {
+            gsap.to(glow, {
+                opacity: 0,
+                duration: 0.3
+            });
+            gsap.to(spotlight, {
+                background: "radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.98) 30%)",
+                duration: 1
+            });
+            console.log("Ngọn nến đã tắt. Những bản thảo cấm đang hiện ra...");
+        } else {
+            gsap.to(glow, {
+                opacity: 1,
+                duration: 0.3
+            });
+            spotlight.style.background = "";
+        }
+        isNookDark = !isNookDark;
+    }
+
+    // Hiệu ứng lật trang khi nhấn vào bản thảo
+    document.querySelectorAll('.manuscript-card').forEach(card => {
+        card.addEventListener('click', () => {
+            gsap.to(card, {
+                rotationY: -90,
+                x: -100,
+                opacity: 0,
+                duration: 0.8,
+                ease: "power2.in",
+                onComplete: () => {
+                    alert("Đang mở bản thảo cổ... Hãy sẵn sàng để lặn sâu vào câu chuyện.");
+                    // Chỗ này bạn có thể redirect: window.location.href = "read_story.php";
+                }
+            });
+        });
+    });
 
     //----------------------------- section 4 ----------------------------- //
 
