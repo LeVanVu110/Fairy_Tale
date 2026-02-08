@@ -35,6 +35,44 @@
         }
 
         /* ----------------------------- section 3 -----------------------------  */
+        /* Hiệu ứng Gió thổi: Tạo bóng đổ nhẹ ở góc thẻ */
+        .parchment-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, transparent 50%, rgba(61, 43, 31, 0.05) 50%);
+            box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.02);
+            transition: all 0.5s ease;
+        }
+
+        .parchment-card:hover::before {
+            width: 45px;
+            height: 45px;
+        }
+
+        /* Đảm bảo SVG signature tàng hình trước khi vẽ */
+        #signature-path {
+            stroke-dasharray: 500;
+            stroke-dashoffset: 500;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .desk-illustration {
+                position: relative;
+                left: 0;
+                margin-bottom: -30px;
+                transform: rotate(0deg) scale(0.8);
+                opacity: 1 !important;
+            }
+
+            .parchment-card {
+                padding: 2rem 1.5rem;
+            }
+        }
 
         /* ----------------------------- section 4 -----------------------------  */
 
@@ -171,6 +209,60 @@
     </section>
 
     <!-- ----------------------------- section 3 -----------------------------  -->
+    <section id="collectors-desk" class="relative py-[100px] md:py-[150px] px-6 bg-[#fcfaf5] overflow-hidden">
+
+        <div class="container mx-auto max-w-6xl relative">
+            <div class="flex flex-col md:flex-row items-center justify-center relative">
+
+                <div class="desk-illustration relative md:absolute md:-left-10 z-20 w-40 md:w-64 transform -rotate-12 opacity-0 translate-x-[-50px]">
+                    <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1000&auto=format&fit=crop"
+                        alt="Ink and Quill"
+                        class="rounded-full border-8 border-[#3d2b1f]/5 shadow-2xl sepia-[0.5]">
+                    <div class="absolute -bottom-4 -right-4 text-[#7a1a1a] text-4xl opacity-40">
+                        <i class="ri-quill-pen-fill"></i>
+                    </div>
+                </div>
+
+                <div class="parchment-card relative z-10 bg-[#fdfbf7] p-8 md:p-16 shadow-[0_10px_50px_rgba(0,0,0,0.1)] max-w-2xl border border-[#3d2b1f]/10 rounded-[2px] transition-all duration-500 hover:shadow-[0_15px_60px_rgba(0,0,0,0.15)]">
+
+                    <div class="corner-curl top-0 right-0"></div>
+
+                    <div class="space-y-6">
+                        <h2 class="font-gothic text-2xl md:text-3xl text-[#7a1a1a] tracking-widest">Lời Nhắn Từ Nhà Chép Sử</h2>
+
+                        <div class="message-content font-serif italic text-[#3d2b1f]/80 leading-relaxed md:text-lg">
+                            <p>"Cảm ơn lữ khách đã dừng chân bên bàn làm việc của ta. Những câu chuyện này không chỉ là những dòng code khô khan, mà là hơi thở của quá khứ được tái sinh. Hy vọng bạn tìm thấy một chút phép thuật giữa những dòng chữ này."</p>
+                        </div>
+
+                        <div class="signature-container py-4 flex justify-end">
+                            <svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path id="signature-path" d="M20 40C30 35 50 10 70 25C90 40 110 45 130 20C150 -5 170 30 190 35"
+                                    stroke="#3d2b1f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+
+                        <div class="newsletter-area pt-8 border-t border-[#3d2b1f]/10">
+                            <p class="text-xs uppercase tracking-[0.3em] mb-4">Để lại danh tính để nhận thư tín:</p>
+                            <form class="relative group">
+                                <input type="email" placeholder="Địa chỉ thư tín (Email)..."
+                                    class="w-full bg-transparent border-none border-b border-[#3d2b1f]/30 py-2 focus:ring-0 focus:border-[#7a1a1a] transition-all italic text-[#3d2b1f] placeholder-[#3d2b1f]/40 outline-none">
+                                <button class="absolute right-0 bottom-2 text-[#7a1a1a] hover:translate-x-2 transition-transform">
+                                    <i class="ri-send-plane-2-line text-xl"></i>
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="social-links pt-6 flex gap-6 justify-center md:justify-start opacity-60">
+                            <a href="#" class="hover:text-[#7a1a1a] transition-colors"><i class="ri-facebook-circle-line text-xl"></i></a>
+                            <a href="#" class="hover:text-[#7a1a1a] transition-colors"><i class="ri-instagram-line text-xl"></i></a>
+                            <a href="#" class="hover:text-[#7a1a1a] transition-colors"><i class="ri-twitter-x-line text-xl"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
 
     <!-- ----------------------------- section 4 -----------------------------  -->
 
@@ -328,6 +420,48 @@
     });
 
     //----------------------------- section 3 ----------------------------- //
+    // 1. Hiệu ứng trượt vào của minh họa lọ mực
+    gsap.to(".desk-illustration", {
+        scrollTrigger: {
+            trigger: "#collectors-desk",
+            start: "top 70%",
+        },
+        opacity: 1,
+        x: 0,
+        rotate: -5,
+        duration: 1.5,
+        ease: "power3.out"
+    });
+
+    // 2. Hiệu ứng Bút ký (Signature Animation)
+    gsap.to("#signature-path", {
+        scrollTrigger: {
+            trigger: ".signature-container",
+            start: "top 80%",
+        },
+        strokeDashoffset: 0,
+        duration: 3,
+        ease: "power1.inOut"
+    });
+
+    // 3. Hiệu ứng rung nhẹ khi Hover Card (The Subtle Leaf Turn)
+    const card = document.querySelector('.parchment-card');
+    card.addEventListener('mouseenter', () => {
+        gsap.to(card, {
+            y: -5,
+            rotateZ: 0.5,
+            duration: 0.4,
+            ease: "sine.inOut"
+        });
+    });
+    card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+            y: 0,
+            rotateZ: 0,
+            duration: 0.4,
+            ease: "sine.inOut"
+        });
+    });
 
     //----------------------------- section 4 ----------------------------- //
 
