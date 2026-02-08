@@ -111,6 +111,80 @@
         }
 
         /* ----------------------------- section 2 -----------------------------  */
+        /* ----------------------------- Section 2: Living Landmarks ----------------------------- */
+        .landmark-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 25;
+            /* Nằm trên lớp sương mù */
+            pointer-events: none;
+        }
+
+        .landmark {
+            position: absolute;
+            pointer-events: auto;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Hiệu ứng hình minh họa vẽ tay */
+        .landmark-icon {
+            font-size: 3rem;
+            filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.5));
+            animation: idle-float 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes idle-float {
+            from {
+                transform: translateY(0) rotate(-2deg);
+            }
+
+            to {
+                transform: translateY(-10px) rotate(2deg);
+            }
+        }
+
+        /* Hộp thông tin giấy da (Desktop) */
+        .info-card {
+            position: absolute;
+            top: -120px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.8);
+            width: 200px;
+            background: #e6d5b8;
+            background-image: url('https://www.transparenttextures.com/patterns/handmade-paper.png');
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+            z-index: 100;
+        }
+
+        .landmark:hover .info-card {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) scale(1);
+        }
+
+        /* Mobile: Bottom Sheet */
+        #bottom-sheet {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            background: #1a140f;
+            border-top: 3px solid #b8860b;
+            padding: 30px;
+            z-index: 1000;
+            transition: bottom 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border-radius: 20px 20px 0 0;
+        }
+
+        #bottom-sheet.active {
+            bottom: 0;
+        }
 
         /* ----------------------------- section 3 -----------------------------  */
 
@@ -153,6 +227,32 @@
     </section>
 
     <!-- ----------------------------- section 2 -----------------------------  -->
+    <div class="landmark-layer">
+        <div class="landmark" style="top: 25%; left: 65%;" onclick="openLandmark('volcano', 'Núi Lửa Cổ Đại', 'Nơi hơi thở của rồng vẫn còn âm ỉ...')">
+            <div class="landmark-icon">🌋</div>
+            <div class="info-card hidden md:block">
+                <h4 class="font-gothic text-red-900 border-b border-red-200">The Ember Peak</h4>
+                <p class="text-xs italic mt-2">Dành cho những ai không sợ lửa.</p>
+            </div>
+        </div>
+
+        <div class="landmark" style="top: 60%; left: 30%;" onclick="openLandmark('harbor', 'Bến Cảng Sương Mù', 'Tiếng chuông tàu vang vọng trong đêm.')">
+            <div class="landmark-icon">⛵</div>
+            <div class="info-card hidden md:block">
+                <h4 class="font-gothic text-blue-900 border-b border-blue-200">The Lost Port</h4>
+                <p class="text-xs italic mt-2">Chuyến tàu không bao giờ trở lại.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="bottom-sheet">
+        <div class="w-12 h-1.5 bg-gray-600 rounded-full mx-auto mb-6"></div>
+        <h3 id="sheet-title" class="font-gothic text-[#b8860b] text-2xl mb-2"></h3>
+        <p id="sheet-desc" class="text-[#d4bc8d] italic mb-8"></p>
+        <button class="w-full py-4 bg-[#b8860b] text-black font-bold tracking-widest uppercase rounded">
+            Bắt đầu hành trình
+        </button>
+    </div>
 
     <!-- ----------------------------- section 3 -----------------------------  -->
 
@@ -259,6 +359,71 @@
     });
 
     // -----------------------------section 2 ----------------------------- //
+    // Quản lý âm thanh môi trường
+    const ambientSounds = {
+        volcano: new Audio('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-one/foley_fire_ignite_large_gas_001.mp3'),
+        harbor: new Audio('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-four-line/zapsplat_nature_ocean_waves_gentle_001.mp3')
+    };
+
+    let currentSound = null;
+
+    function openLandmark(id, title, desc) {
+        // 1. Hiệu ứng Haptic cho Mobile
+        if (window.navigator.vibrate) window.navigator.vibrate(40);
+
+        // 2. Chuyển đổi âm thanh
+        if (currentSound) {
+            gsap.to(currentSound, {
+                volume: 0,
+                duration: 1,
+                onComplete: () => currentSound.pause()
+            });
+        }
+        currentSound = ambientSounds[id];
+        if (currentSound) {
+            currentSound.volume = 0;
+            currentSound.play();
+            gsap.to(currentSound, {
+                volume: 0.3,
+                duration: 1
+            });
+        }
+
+        // 3. Hiệu ứng Focus bản đồ
+        gsap.to(".map-content", {
+            scale: 1.5,
+            filter: "blur(2px)",
+            duration: 1,
+            ease: "power2.inOut"
+        });
+
+        // 4. Hiển thị thông tin
+        if (window.innerWidth <= 768) {
+            document.getElementById('sheet-title').innerText = title;
+            document.getElementById('sheet-desc').innerText = desc;
+            document.getElementById('bottom-sheet').classList.add('active');
+        } else {
+            // Trên Desktop có thể mở một Modal hoặc Side Panel khác
+            alert("Đang thám hiểm: " + title);
+        }
+    }
+
+    // Đóng bottom sheet khi chạm ra ngoài
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.landmark') && !e.target.closest('#bottom-sheet')) {
+            document.getElementById('bottom-sheet').classList.remove('active');
+            gsap.to(".map-content", {
+                scale: 1,
+                filter: "blur(0px)",
+                duration: 1
+            });
+            if (currentSound) gsap.to(currentSound, {
+                volume: 0,
+                duration: 1,
+                onComplete: () => currentSound.pause()
+            });
+        }
+    });
 
     //----------------------------- section 3 ----------------------------- //
 
