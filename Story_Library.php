@@ -195,6 +195,7 @@
             flex-direction: column;
             align-items: center;
             gap: -40px;
+            perspective: 1500px;
             /* Giảm độ chồng lấp để dễ nhìn hơn */
         }
 
