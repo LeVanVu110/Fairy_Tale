@@ -229,6 +229,91 @@
         }
 
         /* ----------------------------- section 3 -----------------------------  */
+        #quills-rest {
+            background: linear-gradient(to bottom, #fcfaf5 0%, #e8e4d9 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hiệu ứng Mực khô */
+        .drying-ink {
+            color: #3d2b1f;
+            transition: color 3s ease-out, filter 3s ease-out;
+        }
+
+        .section-active .drying-ink {
+            color: rgba(61, 43, 31, 0.4);
+            filter: blur(0.5px);
+        }
+
+        /* Khung Epilogue lộng lẫy */
+        .epilogue-frame {
+            border: 2px solid #b8860b;
+            padding: 3rem;
+            position: relative;
+            background: #fdfbf7;
+            box-shadow: inset 0 0 50px rgba(184, 134, 11, 0.05);
+        }
+
+        .epilogue-frame::before {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border: 1px solid rgba(184, 134, 11, 0.2);
+        }
+
+        /* Hiệu ứng Khói nến SVG */
+        #candle-smoke {
+            filter: blur(8px);
+            opacity: 0.6;
+        }
+
+        /* Trang giấy cuối cùng bị cong */
+        .page-fold {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, transparent 50%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.1) 100%);
+            cursor: pointer;
+            transition: all 0.5s ease;
+            z-index: 30;
+        }
+
+        .page-fold:hover {
+            width: 150px;
+            height: 150px;
+        }
+
+        /* Nút Chìa khóa & La bàn */
+        .cta-item {
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .cta-item:hover {
+            transform: translateY(-10px);
+            color: #7a1a1a;
+        }
+
+        .cta-item i {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+        }
+
+        @media (max-width: 768px) {
+            .epilogue-frame {
+                padding: 1.5rem;
+            }
+
+            .cta-container {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
 
         /* ----------------------------- section 4 -----------------------------  */
 
@@ -332,6 +417,48 @@
     </section>
 
     <!-- ----------------------------- section 3 -----------------------------  -->
+    <section id="quills-rest" class="relative py-32 md:py-48 mt-[20vh]">
+
+        <div class="page-fold"></div>
+
+        <div class="container mx-auto max-w-4xl px-6 text-center">
+
+            <div class="relative mb-16 opacity-0" id="final-visual">
+                <div class="text-6xl text-[#3d2b1f]/20 mb-4">
+                    <i class="ri-quill-pen-line"></i>
+                </div>
+                <svg class="mx-auto w-24 h-24" viewBox="0 0 100 100" id="candle-smoke">
+                    <path d="M50,80 Q40,60 50,40 T50,0" fill="none" stroke="#3d2b1f" stroke-width="2" />
+                </svg>
+            </div>
+
+            <div class="epilogue-frame mb-20 opacity-0 translate-y-10" id="epilogue-container">
+                <h2 class="font-gothic text-3xl md:text-5xl mb-8">Lời Kết</h2>
+                <p class="drying-ink text-lg md:text-xl italic leading-relaxed">
+                    "Dòng mực có thể khô, trang giấy có thể sờn, nhưng những câu chuyện thì vẫn luôn ở đó,
+                    đợi chờ một tâm hồn đủ tò mò để đánh thức chúng thêm một lần nữa.
+                    Hành trình của bạn tại Biên niên sử hôm nay dừng bước, nhưng thế giới ngoài kia,
+                    những chương mới vẫn đang được viết tiếp bằng chính dấu chân của bạn..."
+                </p>
+            </div>
+
+            <div class="cta-container flex justify-center gap-16 md:gap-32 opacity-0" id="final-actions">
+                <div class="cta-item group">
+                    <i class="ri-key-2-line"></i>
+                    <span class="font-gothic text-sm tracking-widest">VỀ THƯ VIỆN</span>
+                </div>
+                <div class="cta-item group">
+                    <i class="ri-compass-3-line"></i>
+                    <span class="font-gothic text-sm tracking-widest">TRUYỆN NGẪU NHIÊN</span>
+                </div>
+                <div class="cta-item group" id="back-to-top">
+                    <i class="ri-history-line"></i>
+                    <span class="font-gothic text-sm tracking-widest">VỀ KHỞI NGUYÊN</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
 
     <!-- ----------------------------- section 4 -----------------------------  -->
 
@@ -545,6 +672,69 @@
     });
 
     //----------------------------- section 3 ----------------------------- //
+    window.addEventListener('load', function() {
+        // ScrollTrigger cho Section 3
+        const section3Tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#quills-rest",
+                start: "top 60%",
+                onEnter: () => document.getElementById('quills-rest').classList.add('section-active')
+            }
+        });
+
+        section3Tl.to("#final-visual", {
+                opacity: 1,
+                duration: 2
+            })
+            .to("#epilogue-container", {
+                opacity: 1,
+                y: 0,
+                duration: 1.5
+            }, "-=1")
+            .to("#final-actions", {
+                opacity: 1,
+                duration: 1.5,
+                ease: "power2.out"
+            }, "-=0.5");
+
+        // Animation cho khói nến (bay lượn nhẹ nhàng)
+        gsap.to("#candle-smoke path", {
+            attr: {
+                d: "M50,80 Q60,60 40,40 T50,0"
+            },
+            duration: 3,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+
+        // Nút "Về khởi nguyên" - Đồng hồ ngược
+        document.getElementById('back-to-top').addEventListener('click', () => {
+            gsap.to(window, {
+                duration: 3,
+                scrollTo: 0,
+                ease: "power4.inOut"
+            });
+        });
+
+        // Hiệu ứng Chìa khóa tỏa sáng khi hover
+        document.querySelectorAll('.cta-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                gsap.to(item.querySelector('i'), {
+                    scale: 1.2,
+                    color: "#b8860b",
+                    duration: 0.3
+                });
+            });
+            item.addEventListener('mouseleave', () => {
+                gsap.to(item.querySelector('i'), {
+                    scale: 1,
+                    color: "#3d2b1f",
+                    duration: 0.3
+                });
+            });
+        });
+    });
 
     //----------------------------- section 4 ----------------------------- //
 
