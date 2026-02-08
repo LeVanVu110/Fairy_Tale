@@ -91,7 +91,7 @@
                 <nav class="hidden lg:block shrink-0">
                     <ul class="flex gap-8 text-[11px] uppercase tracking-[0.3em]">
                         <li><a href="#" class="hover:opacity-50 transition-opacity">Kho tàng</a></li>
-                        <li><a href="#" class="hover:opacity-50 transition-opacity">Bản đồ</a></li>
+                        <li><a href="World_Fairy_Tale_Map.php" class="hover:opacity-50 transition-opacity">Bản đồ</a></li>
                         <li><a href="#" class="hover:opacity-50 transition-opacity">Ghi chép</a></li>
                     </ul>
                 </nav>
