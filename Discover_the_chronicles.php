@@ -331,55 +331,6 @@
         </div>
     </section>
 
-    <script>
-        window.addEventListener('load', function() {
-            gsap.registerPlugin(ScrollTrigger);
-
-            // 1. Hiệu ứng sợi chỉ tự vẽ (Growth Animation)
-            gsap.to("#main-thread", {
-                scrollTrigger: {
-                    trigger: "#weaver-thread",
-                    start: "top center",
-                    end: "bottom bottom",
-                    scrub: 1.5
-                },
-                height: "100%",
-                ease: "none"
-            });
-
-            // 2. Xử lý từng Milestone (Memory Fade & Snap)
-            gsap.utils.toArray('.milestone').forEach((stone, i) => {
-                const gear = stone.querySelector('.gear-node');
-
-                gsap.to(stone, {
-                    scrollTrigger: {
-                        trigger: stone,
-                        start: "top 80%",
-                        end: "top 40%",
-                        toggleActions: "play none none reverse",
-                        onEnter: () => stone.classList.add('active'),
-                        onLeaveBack: () => stone.classList.remove('active'),
-                    },
-                    opacity: 1,
-                    y: 0,
-                    duration: 1
-                });
-
-                // Hiệu ứng xoay bánh răng khi cuộn
-                gsap.to(gear, {
-                    scrollTrigger: {
-                        trigger: stone,
-                        start: "top bottom",
-                        end: "bottom top",
-                        scrub: 1
-                    },
-                    rotation: 360,
-                    ease: "none"
-                });
-            });
-        });
-    </script>
-
     <!-- ----------------------------- section 3 -----------------------------  -->
 
     <!-- ----------------------------- section 4 -----------------------------  -->
@@ -546,6 +497,52 @@
     });
 
     // -----------------------------section 2 ----------------------------- //
+    window.addEventListener('load', function() {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 1. Hiệu ứng sợi chỉ tự vẽ (Growth Animation)
+        gsap.to("#main-thread", {
+            scrollTrigger: {
+                trigger: "#weaver-thread",
+                start: "top center",
+                end: "bottom bottom",
+                scrub: 1.5
+            },
+            height: "100%",
+            ease: "none"
+        });
+
+        // 2. Xử lý từng Milestone (Memory Fade & Snap)
+        gsap.utils.toArray('.milestone').forEach((stone, i) => {
+            const gear = stone.querySelector('.gear-node');
+
+            gsap.to(stone, {
+                scrollTrigger: {
+                    trigger: stone,
+                    start: "top 80%",
+                    end: "top 40%",
+                    toggleActions: "play none none reverse",
+                    onEnter: () => stone.classList.add('active'),
+                    onLeaveBack: () => stone.classList.remove('active'),
+                },
+                opacity: 1,
+                y: 0,
+                duration: 1
+            });
+
+            // Hiệu ứng xoay bánh răng khi cuộn
+            gsap.to(gear, {
+                scrollTrigger: {
+                    trigger: stone,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1
+                },
+                rotation: 360,
+                ease: "none"
+            });
+        });
+    });
 
     //----------------------------- section 3 ----------------------------- //
 
