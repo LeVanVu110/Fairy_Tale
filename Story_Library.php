@@ -8,6 +8,35 @@
     <title>Document</title>
     <style>
         /* ----------------------------- section 1 -----------------------------  */
+        .font-gothic {
+            font-family: 'Cinzel Decorative', serif;
+        }
+
+        /* Hiệu ứng Mực loang (Ink Spread) */
+        .ink-animate {
+            animation: inkFlow 3s forwards ease-out;
+        }
+
+        @keyframes inkFlow {
+            from {
+                filter: blur(10px);
+                opacity: 0;
+                letter-spacing: 10px;
+            }
+
+            to {
+                filter: blur(0);
+                opacity: 1;
+                letter-spacing: normal;
+            }
+        }
+
+        /* Hiệu ứng nút lún (Chạm vào quá khứ) */
+        .drawer-btn:active {
+            transform: scale(0.95);
+            box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
+            filter: brightness(0.8);
+        }
 
         /* ----------------------------- section 2 -----------------------------  */
 
@@ -70,38 +99,6 @@
             </div>
         </div>
     </section>
-
-    <style>
-        .font-gothic {
-            font-family: 'Cinzel Decorative', serif;
-        }
-
-        /* Hiệu ứng Mực loang (Ink Spread) */
-        .ink-animate {
-            animation: inkFlow 3s forwards ease-out;
-        }
-
-        @keyframes inkFlow {
-            from {
-                filter: blur(10px);
-                opacity: 0;
-                letter-spacing: 10px;
-            }
-
-            to {
-                filter: blur(0);
-                opacity: 1;
-                letter-spacing: normal;
-            }
-        }
-
-        /* Hiệu ứng nút lún (Chạm vào quá khứ) */
-        .drawer-btn:active {
-            transform: scale(0.95);
-            box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
-            filter: brightness(0.8);
-        }
-    </style>
 
     <!-- ----------------------------- section 2 -----------------------------  -->
 
